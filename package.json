@@ -1,0 +1,19 @@
+{
+  "name": "drp-14-project",
+  "version": "1.0.0",
+  "description": "Sports Recommendation App.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.doc.ic.ac.uk/cel20/drp-14-project.git"
+  },
+  "author": "la320, tw520, cel20",
+  "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  }
+}
