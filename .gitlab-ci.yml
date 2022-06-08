@@ -4,5 +4,5 @@ stages:
 job1:
     stage: deploy
     script:
-        - export PORT=5000
-        - dpl --provider=heroku --app=drp14-sports-app --api-key=$HEROKU_KEY
+        - git remote add heroku https://heroku:$HEROKU_KEY@git.heroku.com/drp14-sports-app.git
+        - git push -f -q heroku HEAD:master
