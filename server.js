@@ -5,8 +5,8 @@ const path = require("path");
 const Event = require('./models');
 
 const mongoose = require('mongoose');
-const { userInfo } = require("os");
-const res = require("express/lib/response");
+//const { userInfo } = require("os");
+//const res = require("express/lib/response");
 mongoose.connect(
   'mongodb+srv://user:a16iZmbulAApdLuP@cluster0.mbyye.mongodb.net/?retryWrites=true&w=majority',
   {useNewUrlParser: true });
@@ -60,7 +60,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
 app.get("/get_events", (req, res) => {
-  res.send(findEvents());
+  res.send({events: findEvents()});
 });
 
 findEvents = async () => {
