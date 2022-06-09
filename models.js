@@ -17,8 +17,7 @@ const EventSchema = new mongoose.Schema({
    required: true,
  },
  location: String,
- details: String,
- date: Date,
+ date: String, //change this to Date at a later stage
  time: String,
 });
 
@@ -26,3 +25,4 @@ const User = mongoose.model("User", UserSchema);
 const Event = mongoose.model("Event", EventSchema)
 
 module.exports = User;
+module.exports = Event;
