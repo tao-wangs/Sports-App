@@ -1,9 +1,25 @@
-image: hermsi/ruby-dpl:latest
-
 stages:
+    - build
     - deploy
 
 job1:
+    stage: build
+    script:
+        - cd drp14
+        - npm install
+        - npm run build
+    artifacts:
+        paths:
+            - drp14
+            - drp14/build
+    image:
+        node
+
+job2:
     stage: deploy
     script:
-        - dpl --provider=heroku --app=drp14-sports-app --api-key=$HEROKU_KEY
+        - dpl --provider=heroku --app=drp14-sports-app --api-key=$HEROKU_KEY --skip_cleanup=true
+    dependencies:
+        - job1
+    image:
+        hermsi/ruby-dpl
