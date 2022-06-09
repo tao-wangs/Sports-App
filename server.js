@@ -6,6 +6,7 @@ const Event = require('./models');
 
 const mongoose = require('mongoose');
 const { userInfo } = require("os");
+const res = require("express/lib/response");
 mongoose.connect(
   'mongodb+srv://user:a16iZmbulAApdLuP@cluster0.mbyye.mongodb.net/?retryWrites=true&w=majority',
   {useNewUrlParser: true });
@@ -41,7 +42,7 @@ const events = [
   ]
 
 events.map(e => 
-  { e.save().then(() => console.log('Event %s saved to database', e.name))});
+  { e.save().then(async () => console.log('Event %s saved to database', e.name))});
 
 //database stuff ends here
 
@@ -59,13 +60,11 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
 app.get("/get_events", (req, res) => {
-  const events = Event.find({});
-  events.map(e => e.name + "\n" + e.location + "\n" + e.date + ", " + e.time);
-  res.send(events);
-    /*events: [
-      "Football Taster Session\nAt Buckingham Palace\n10/06/22, 12:00 PM",
-      "One off game\nAt London Bridge\n08/06/22, 12:00 AM",
-      "Lorem Ipsum\nAt Dolores Sit Amet\n08/06/22, 2:45 PM",
-      "Fox Hunting\nAt 10 Downing Street\n08/06/22, 6:00 PM",
-    ],*/
+  res.send(findEvents());
 });
+
+findEvents = async () => {
+  const events = Event.find({});
+  const formattedEvents = (await events).map(e => e.name + "\n" + e.location + "\n" + e.date + ", " + e.time);
+  return formattedEvents;
+}
