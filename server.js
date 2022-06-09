@@ -1,6 +1,16 @@
 const express = require("express");
 const path = require('path');
 
+//database stuff starts here
+const mongoose = require('mongoose');
+mongoose.connect(
+  'mongodb+srv://user:a16iZmbulAApdLuP@cluster0.mbyye.mongodb.net/?retryWrites=true&w=majority', 
+  {useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', error => console.error(error));
+db.once('open', () => console.error("Connected to Mongoose"));
+//database stuff ends here
+
 const app = express();
 const port = process.env.PORT || 5000;
 
