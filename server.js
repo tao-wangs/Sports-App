@@ -39,7 +39,7 @@ const events = [
     })
   ]
 
-//events.map(e => 
+//events.map(e =>
 //  { e.save().then(async () => console.log('Event %s saved to database', e.name))});
 
 //database stuff ends here
@@ -58,20 +58,22 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
 app.get("/get_events", (req, res) => {
-  res.send({
-    //events: findEvents()});
-    events: [
+  findEvents().then(x => {res.send({events: x});});
+  //res.send({
+    //events: findEvents().then(x => {console.log(x); return x;})});
+    /*events: [
       "Football Taster Session\nAt Buckingham Palace\n10/06/22, 12:00 PM",
       "One off game\nAt London Bridge\n08/06/22, 12:00 AM",
       "Lorem Ipsum\nAt Dolores Sit Amet\n08/06/22, 2:45 PM",
       "Fox Hunting\nAt 10 Downing Street\n08/06/22, 6:00 PM",
     ],
-  });
+  });*/
 });
 
 
 findEvents = async () => {
   const events = await Event.find({});
   const formattedEvents = events.map(e => e.name + "\n" + e.location + "\n" + e.date + ", " + e.time);
+  console.log(formattedEvents);
   return formattedEvents;
 }
