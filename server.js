@@ -16,6 +16,11 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 // create a GET route
 app.get("/get_events", (req, res) => {
   res.send({
-    event1: "Football Taster Session\nAt Buckingham Palace\n10/06/22, 12:00 PM",
+    events: [
+      "Football Taster Session\nAt Buckingham Palace\n10/06/22, 12:00 PM",
+      "One off game\nAt London Bridge\n08/06/22, 12:00 AM",
+      "Lorem Ipsum\nAt Dolores Sit Amet\n08/06/22, 2:45 PM",
+      "Fox Hunting\nAt 10 Downing Street\n08/06/22, 6:00 PM",
+    ],
   });
 });

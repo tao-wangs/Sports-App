@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { SportingEvent } from "./SportingEvent";
 import "./App.css";
 
 class App extends Component {
@@ -22,9 +23,18 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <button onClick={this.getEvents} type="button">
-            {this.state.body ? this.state.body.event1 : "Find Events"}
-          </button>
+          {this.state.body ? (
+            <div>
+              <SportingEvent data={this.state.body.events[0]} />
+              <SportingEvent data={this.state.body.events[1]} />
+              <SportingEvent data={this.state.body.events[2]} />
+              <SportingEvent data={this.state.body.events[3]} />
+            </div>
+          ) : (
+            <button onClick={this.getEvents} type="button">
+              Find Event
+            </button>
+          )}
         </header>
       </div>
     );
