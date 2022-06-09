@@ -1,6 +1,7 @@
 import React from "react";
 
 function SportingEvent(props) {
+  console.log(props);
   const text = props.data.split("\n");
   return (
     <button type="button">
