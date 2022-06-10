@@ -1,36 +1,42 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import { SportingEvent } from "./SportingEvent";
 import "./App.css";
 
 class App extends Component {
   state = {
-    data: null,
+    body: null,
   };
 
-  componentDidMount() {
-    this.callBackendAPI()
-      .then((res) => this.setState({ data: res.express }))
-      .catch((err) => console.log(err));
-  }
   // fetching the GET route from the Express server which matches the GET route from server.js
-  callBackendAPI = async () => {
-    const response = await fetch("/express_backend");
+  getEvents = async () => {
+    const response = await fetch("/get_events");
     const body = await response.json();
 
     if (response.status !== 200) {
       throw Error(body.message);
     }
-    return body;
+
+    console.log(body);
+    this.setState({ body });
   };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          {this.state.body ? (
+            <div>
+              <SportingEvent data={this.state.body.events[0]} />
+              <SportingEvent data={this.state.body.events[1]} />
+              <SportingEvent data={this.state.body.events[2]} />
+              <SportingEvent data={this.state.body.events[3]} />
+            </div>
+          ) : (
+            <button onClick={this.getEvents} type="button">
+              Find Event
+            </button>
+          )}
         </header>
-        <p className="App-intro">{this.state.data}</p>
       </div>
     );
   }
