@@ -1,7 +1,6 @@
-import React from "react";
-import "./App.css";
+import React, { Component } from "react";
 
-class HostEventForm extends React.Component {
+class HostEventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +34,7 @@ class HostEventForm extends React.Component {
 
   render() {
     return (
-      <div classname="form-list">
+      <div className="form-list">
         <form onSubmit={this.handleSubmit}>
           <li>
             <label>
