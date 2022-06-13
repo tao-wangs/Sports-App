@@ -16,8 +16,9 @@ const EventSchema = new mongoose.Schema({
    type: String,
    required: true,
  },
+ description: String,
  location: String,
- date: String, //change this to Date at a later stage
+ date: Date, //if this doesn't work, revert to String
  time: String,
 });
 
