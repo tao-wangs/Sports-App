@@ -7,7 +7,8 @@ class HostEventForm extends React.Component {
       name: '',
       location: '',
       date: '',
-      time: ''
+      time: '',
+      description: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,7 +21,13 @@ class HostEventForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.name + this.state.location);
+    console.log(this.state.name + this.state.location + this.state.date + this.state.time);
+    const params = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.state)
+    }
+    fetch("/post_event", params);
   }
 
   render() {
@@ -48,7 +55,7 @@ class HostEventForm extends React.Component {
           Enter Date Here:
           <input
             name="date"
-            type="text"
+            type="date"
             value={this.state.date}
             onChange={this.handleChange}
           />
@@ -62,7 +69,18 @@ class HostEventForm extends React.Component {
             onChange={this.handleChange}
           />
         </label>
+        <label>
+          Enter Description Here:
+          <textarea
+            name="description"
+            type="text"
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+        </label>
+
         <input type="submit" value="Submit"/>
+
       </form>
     )
   }
