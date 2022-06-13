@@ -20,7 +20,13 @@ class HostEventForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.name + this.state.location);
+    console.log(this.state.name + this.state.location + this.state.date + this.state.time);
+    const params = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.state)
+    }
+    fetch("/post_event", params);
   }
 
   render() {
