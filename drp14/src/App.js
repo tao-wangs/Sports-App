@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
+import { HostEventForm } from "./HostEventForm";
 import "./App.css";
 
 class App extends Component {
@@ -35,6 +36,7 @@ class App extends Component {
               Find Event
             </button>
           )}
+          <HostEventForm />
         </header>
       </div>
     );
