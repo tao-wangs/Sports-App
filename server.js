@@ -50,9 +50,5 @@ app.post("/post_event", (req, res) => {
 });
 
 findEvents = async () => {
-  const events = await Event.find({});
-  const formattedEvents = events.map(
-    (e) => e.name + "\n" + e.location + "\n" + e.date + ", " + e.time
-  );
-  return formattedEvents;
+  return await Event.find({});
 };

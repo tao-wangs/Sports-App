@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Navigate } from "react-router-dom";
 class HostEventForm extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +9,7 @@ class HostEventForm extends Component {
       date: "",
       time: "",
       description: "",
+      submit: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,10 +31,13 @@ class HostEventForm extends Component {
       body: JSON.stringify(this.state),
     };
     fetch("/post_event", params);
+    this.setState({ submit: true });
   }
 
   render() {
-    return (
+    return this.state.submit ? (
+      <Navigate to="/" />
+    ) : (
       <div className="form-list">
         <form onSubmit={this.handleSubmit}>
           <li>
@@ -63,19 +67,8 @@ class HostEventForm extends Component {
               Enter Date Here:
               <input
                 name="date"
-                type="date"
+                type="datetime-local"
                 value={this.state.date}
-                onChange={this.handleChange}
-              />
-            </label>
-          </li>
-          <li>
-            <label>
-              Enter Time Here:
-              <input
-                name="time"
-                type="time"
-                value={this.state.time}
                 onChange={this.handleChange}
               />
             </label>

@@ -12,18 +12,17 @@ const UserSchema = new mongoose.Schema({
 });
 
 const EventSchema = new mongoose.Schema({
- name: {
-   type: String,
-   required: true,
- },
- description: String,
- location: String,
- date: Date, //if this doesn't work, revert to String
- time: String,
+  name: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  location: String,
+  date: Date,
 });
 
 const User = mongoose.model("User", UserSchema);
-const Event = mongoose.model("Event", EventSchema)
+const Event = mongoose.model("Event", EventSchema);
 
 module.exports = User;
 module.exports = Event;

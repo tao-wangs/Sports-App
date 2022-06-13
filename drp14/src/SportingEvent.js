@@ -1,13 +1,13 @@
 import React from "react";
 
 function SportingEvent(props) {
-  console.log(props);
-  const text = props.data.split("\n");
+  const date = new Date(props.data.date);
   return (
     <button type="button">
-      <p>{text[0]}</p>
-      <p>{text[1]}</p>
-      <p>{text[2]}</p>
+      <p>{props.data.name}</p>
+      <p>{props.data.location}</p>
+      <p>{date.toUTCString()}</p>
+      <p>{props.data.description}</p>
     </button>
   );
 }
