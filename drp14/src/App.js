@@ -26,10 +26,9 @@ class App extends Component {
         <header className="App-header">
           {this.state.body ? (
             <div>
-              <SportingEvent data={this.state.body.events[0]} />
-              <SportingEvent data={this.state.body.events[1]} />
-              <SportingEvent data={this.state.body.events[2]} />
-              <SportingEvent data={this.state.body.events[3]} />
+              {this.state.body.events.map(x => (
+                <SportingEvent data={x} />
+              ))}
             </div>
           ) : (
             <button onClick={this.getEvents} type="button">
