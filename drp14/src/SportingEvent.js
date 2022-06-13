@@ -6,7 +6,7 @@ function SportingEvent(props) {
     <button type="button">
       <p>{props.data.name}</p>
       <p>{props.data.location}</p>
-      <p>{date.toUTCString()}</p>
+      <p>{date.toLocaleString()}</p>
       <p>{props.data.description}</p>
     </button>
   );
