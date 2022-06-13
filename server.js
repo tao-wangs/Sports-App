@@ -14,36 +14,6 @@ const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.once("open", () => console.error("Connected to Mongoose Database"));
 
-const events = [
-  new Event({
-    name: "Football Taster Session",
-    location: "At Buckingham Palace",
-    date: "10/06/22",
-    time: "12:00 PM",
-  }),
-  new Event({
-    name: "One off game",
-    location: "At London Bridge",
-    date: "08/06/22",
-    time: "12:00 AM",
-  }),
-  new Event({
-    name: "Lorem Ipsum",
-    location: "At Dolores Sit Amet",
-    date: "08/06/22",
-    time: "2:45 PM",
-  }),
-  new Event({
-    name: "Fox Hunting",
-    location: "At 10 Downing Street",
-    date: "08/06/22",
-    time: "6:00 PM",
-  }),
-];
-
-//events.map(e =>
-//  { e.save().then(async () => console.log('Event %s saved to database', e.name))});
-
 //database stuff ends here
 
 const app = express();
