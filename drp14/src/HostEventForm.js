@@ -7,7 +7,8 @@ class HostEventForm extends React.Component {
       name: '',
       location: '',
       date: '',
-      time: ''
+      time: '',
+      description: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -54,7 +55,7 @@ class HostEventForm extends React.Component {
           Enter Date Here:
           <input
             name="date"
-            type="text"
+            type="date"
             value={this.state.date}
             onChange={this.handleChange}
           />
@@ -68,7 +69,18 @@ class HostEventForm extends React.Component {
             onChange={this.handleChange}
           />
         </label>
+        <label>
+          Enter Description Here:
+          <textarea
+            name="description"
+            type="text"
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+        </label>
+
         <input type="submit" value="Submit"/>
+
       </form>
     )
   }
