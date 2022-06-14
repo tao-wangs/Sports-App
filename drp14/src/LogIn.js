@@ -26,6 +26,20 @@ class LogIn extends Component {
       email: this.state.email,
       password: hashedPass,
     };
+
+    const params = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    };
+
+    const response = await fetch("/post_login", params);
+    const body = await response.json();
+    if (!body.result) {
+      alert("Password Incorrect");
+      return;
+    }
+    this.setState({ submit: true });
   }
 
   render() {

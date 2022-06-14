@@ -66,8 +66,19 @@ app.post("/post_signup", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).send("Failed to save user");
+      res.status(400).send("eailed to save user");
     });
+});
+
+app.post("post_login", (req, res) => {
+  console.log(req.body)
+  findUser(req.body.email).then((x) => {
+    if (x.length != 1) {
+      res.status(400).send(`No user found with email: ${x}`);
+    } else {
+      res.send({ result: req.body.password === x[0].password });
+    }
+  });
 });
 
 findEvents = async () => {
