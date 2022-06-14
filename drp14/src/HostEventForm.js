@@ -7,7 +7,7 @@ class HostEventForm extends Component {
       name: "",
       location: "",
       date: "",
-      time: "",
+      enddate: "",
       description: "",
       submit: false,
     };
@@ -22,9 +22,6 @@ class HostEventForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(
-      this.state.name + this.state.location + this.state.date + this.state.time
-    );
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -64,11 +61,22 @@ class HostEventForm extends Component {
           </li>
           <li>
             <label>
-              Enter Date Here:
+              Enter Start Date Here:
               <input
                 name="date"
                 type="datetime-local"
                 value={this.state.date}
+                onChange={this.handleChange}
+              />
+            </label>
+          </li>
+          <li>
+            <label>
+              Enter End Date Here:
+              <input
+                name="enddate"
+                type="datetime-local"
+                value={this.state.enddate}
                 onChange={this.handleChange}
               />
             </label>
