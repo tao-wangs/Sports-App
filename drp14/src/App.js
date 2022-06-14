@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HostEventForm } from "./HostEventForm";
 import { Home } from "./Home";
 import { Events } from "./Events";
+import SignUp from "./SignUp";
+
 import "./App.css";
 
 class App extends Component {
@@ -16,6 +18,7 @@ class App extends Component {
               <Route path="/" exact element={<Home />} />
               <Route path="/events" element={<Events />} />
               <Route path="/host" element={<HostEventForm />} />
+              <Route path="/signup" element={<SignUp />} />
             </Routes>
           </header>
         </div>
