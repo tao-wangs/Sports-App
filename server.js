@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const { v4: uuidv4 } = require("uuid");
 
 //database stuff starts here
 const Event = require("./Event");
@@ -17,7 +19,13 @@ db.once("open", () => console.error("Connected to Mongoose Database"));
 
 //database stuff ends here
 
+var sessions = {};
+
 const app = express();
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const port = process.env.PORT || 5000;
 
 app.use(express.static(path.join(__dirname, "drp14", "build")));
@@ -28,9 +36,6 @@ app.get("/", function (req, res) {
 
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // create a GET route
 app.get("/get_events", (req, res) => {
@@ -66,16 +71,29 @@ app.post("/post_signup", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).send("eailed to save user");
+      res.status(400).send("Failed to save user");
     });
 });
 
 app.post("/post_login", (req, res) => {
   findUser(req.body.email).then((x) => {
     if (x.length != 1) {
-      res.status(400).send(`No user found with email: ${x}`);
+      res
+        .status(401)
+        .json({ message: `No user found with email: ${req.body.email}` });
     } else {
-      res.send({ result: req.body.password === x[0].password });
+      if (req.body.password === x[0].password) {
+        console.log("successful login");
+        const id = uuidv4();
+        sessions[req.body.email] = id;
+        res
+          .clearCookie("sessionID")
+          .cookie("sessionID", id)
+          .json({ message: "Login successful!" });
+      } else {
+        console.log("login unsuccessful");
+        res.status(401).json({ message: "Incorrect login credentials" });
+      }
     }
   });
 });

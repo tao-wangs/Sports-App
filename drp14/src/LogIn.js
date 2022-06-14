@@ -35,8 +35,9 @@ class LogIn extends Component {
 
     const response = await fetch("/post_login", params);
     const body = await response.json();
-    if (!body.result) {
-      alert("Password Incorrect");
+
+    if (response.status != 200) {
+      alert(body.message);
       return;
     }
     this.setState({ submit: true });
