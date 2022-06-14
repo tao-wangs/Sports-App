@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
+import { sha256 } from "crypto-hash";
 
 class SignUp extends Component {
   constructor(props) {
@@ -19,16 +20,23 @@ class SignUp extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     if (!(this.state.password === this.state.confirmedPassword)) {
       alert("Passwords do not match!");
       return;
     }
+
+    var hashedPass = await sha256(this.state.password);
+    var user = {
+      email: this.state.email,
+      password: hashedPass,
+    };
+
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(user),
     };
 
     fetch("/post_signup", params);

@@ -3,7 +3,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 //database stuff starts here
-const Event = require("./models");
+const Event = require("./Event");
+const User = require("./User");
 
 const mongoose = require("mongoose");
 mongoose.connect(
@@ -46,6 +47,19 @@ app.post("/post_event", (req, res) => {
     })
     .catch((err) => {
       res.status(400).send("Failed to save event");
+    });
+});
+
+app.post("/post_signup", (req, res) => {
+  const user = new User(req.body);
+  user
+    .save()
+    .then((user) => {
+      res.json("User added successfully");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Failed to save user");
     });
 });
 
