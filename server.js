@@ -70,8 +70,7 @@ app.post("/post_signup", (req, res) => {
     });
 });
 
-app.post("post_login", (req, res) => {
-  console.log(req.body)
+app.post("/post_login", (req, res) => {
   findUser(req.body.email).then((x) => {
     if (x.length != 1) {
       res.status(400).send(`No user found with email: ${x}`);
