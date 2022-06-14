@@ -91,4 +91,4 @@ class HostEventForm extends Component {
   }
 }
 
-export { HostEventForm };
+export default HostEventForm;
