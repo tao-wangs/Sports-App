@@ -39,6 +39,13 @@ class SignUp extends Component {
       body: JSON.stringify(user),
     };
 
+    const response = await fetch("/get_user", params);
+    const body = await response.json();
+    if (body.users > 0) {
+      alert("User already exists for that email!");
+      return;
+    }
+
     fetch("/post_signup", params);
     this.setState({ submit: true });
   }

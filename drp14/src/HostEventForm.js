@@ -22,9 +22,6 @@ class HostEventForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(
-      this.state.name + this.state.location + this.state.date + this.state.time
-    );
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

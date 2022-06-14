@@ -29,6 +29,9 @@ app.get("/", function (req, res) {
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // create a GET route
 app.get("/get_events", (req, res) => {
   findEvents().then((x) => {
@@ -36,8 +39,12 @@ app.get("/get_events", (req, res) => {
   });
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.post("/get_user", (req, res) => {
+  findUser(req.body.email).then((x) => {
+    res.send({ users: x.length });
+  });
+});
+
 app.post("/post_event", (req, res) => {
   const event = new Event(req.body);
   event
@@ -65,4 +72,8 @@ app.post("/post_signup", (req, res) => {
 
 findEvents = async () => {
   return await Event.find({});
+};
+
+findUser = async (foo) => {
+  return await User.find({ email: foo });
 };
