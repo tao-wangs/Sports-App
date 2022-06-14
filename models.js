@@ -19,6 +19,7 @@ const EventSchema = new mongoose.Schema({
   description: String,
   location: String,
   date: Date,
+  enddate: Date
 });
 
 const User = mongoose.model("User", UserSchema);
