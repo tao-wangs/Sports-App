@@ -36,7 +36,7 @@ class LogIn extends Component {
     const response = await fetch("/post_login", params);
     const body = await response.json();
 
-    if (response.status != 200) {
+    if (response.status !== 200) {
       alert(body.message);
       return;
     }
