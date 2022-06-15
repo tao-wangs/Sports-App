@@ -22,7 +22,7 @@ class Events extends Component {
   };
 
   getAttending = async () => {
-    const response = await fetch("get_attending");
+    const response = await fetch("/get_attending");
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -34,7 +34,7 @@ class Events extends Component {
   }
 
   getHosting = async () => {
-    const response = await fetch("get_hosting");
+    const response = await fetch("/get_hosting");
     const body = await response.json();
 
     if (response.status !== 200) {
