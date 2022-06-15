@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import { Column } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { Component } from "react";
+import { Col } from "react-bootstrap";
 
 class MyEvents extends Component {
-  state = {  } 
-  
-  render() { 
-    <div>
-      <Header>My Events</Header>
-      <Column>
-        Hosting Events
-      </Column>
-      
-      <Column>
-        RSVP Events
-      </Column>
-    </div>
-  };
+  state = {};
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <h1>My Events</h1>
+          <Col>Hosting Events</Col>
+
+          <Col>RSVP Events</Col>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default MyEvents;
