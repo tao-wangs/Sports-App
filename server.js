@@ -60,7 +60,7 @@ app.post("/post_rsvp", (req, res) => {
   });
 });
 
-app.post("/get_attending", (req, res) => {
+app.get("/get_attending", (req, res) => {
   const userId = sessions[req.cookies.sessionID];
   if (userId == undefined) {
     res.status(401).json({ message: "Invalid Cookie" });
@@ -71,7 +71,7 @@ app.post("/get_attending", (req, res) => {
   }
 });
 
-app.post("/get_hosting", (req, res) => {
+app.get("/get_hosting", (req, res) => {
   const userId = sessions[req.cookies.sessionID];
   if (userId == undefined) {
     res.status(401).json({ message: "Invalid Cookie" });
