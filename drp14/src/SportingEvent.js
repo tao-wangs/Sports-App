@@ -53,13 +53,17 @@ class SportingEvent extends Component {
         <p>
           <Linkify>{this.state.description}</Linkify>
         </p>
-        <Button
-          className="btn btn-secondary"
-          type="button"
-          onClick={this.handleRSVP}
-        >
-          RSVP
-        </Button>
+        {this.props.rsvp === "hidden" ? (
+          <p></p>
+        ) : (
+          <Button
+            className="btn btn-secondary"
+            type="button"
+            onClick={this.handleRSVP}
+          >
+            RSVP
+          </Button>
+        )}
       </Button>
     );
   }
