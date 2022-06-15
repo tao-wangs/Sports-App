@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { HostEventForm } from "./HostEventForm";
-import { Home } from "./Home";
-import { Events } from "./Events";
+import HostEventForm from "./HostEventForm";
+import Home from "./Home";
+import Events from "./Events";
+import SignUp from "./SignUp";
+import LogIn from "./LogIn";
+
 import "./App.css";
 
 class App extends Component {
@@ -16,6 +19,8 @@ class App extends Component {
               <Route path="/" exact element={<Home />} />
               <Route path="/events" element={<Events />} />
               <Route path="/host" element={<HostEventForm />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<LogIn />} />
             </Routes>
           </header>
         </div>

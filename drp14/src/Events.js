@@ -33,4 +33,4 @@ class Events extends Component {
   }
 }
 
-export { Events };
+export default Events;

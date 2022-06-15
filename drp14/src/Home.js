@@ -11,9 +11,15 @@ class Home extends Component {
         <Link to={"/host"}>
           <button type="button">Host Event</button>
         </Link>
+        <Link to={"/login"}>
+          <button type="button">Log In</button>
+        </Link>
+        <Link to={"/signup"}>
+          <button type="button">Sign Up</button>
+        </Link>
       </div>
     );
   }
 }
 
-export { Home };
+export default Home;
