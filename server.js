@@ -131,6 +131,7 @@ findUser = async (foo) => {
 
 rsvpEvent = async (event, user) => {
   await Event.updateOne({ _id: event }, { $push: { attendees: user } });
+  await User.updateOne({ _id: user }, { $push: {attending: event} });
 };
 
 findAttending = async (user) => {
@@ -139,4 +140,8 @@ findAttending = async (user) => {
 
 findHosting = async (user) => {
   return await Event.find({id: { $in: user.hosting }});
+}
+
+hostEvent = async (event, user) => {
+  await User.updateOne({ _id: user }, { $push: { hosting: event } });
 }
