@@ -60,6 +60,18 @@ app.post("/post_rsvp", (req, res) => {
   });
 });
 
+app.post("/get_attending", (req, res) => {
+  findAttending(req.body.user).then(x => {
+    res.json({events: x});
+  })
+});
+
+app.post("/get_hosting", (req, res) => {
+  findHosting(req.body.user).then(x => {
+    res.json({events: x});
+  })
+});
+
 app.post("/post_event", (req, res) => {
   const event = new Event(req.body);
   event
@@ -108,6 +120,7 @@ app.post("/post_login", (req, res) => {
   });
 });
 
+
 findEvents = async () => {
   return await Event.find({});
 };
@@ -119,3 +132,11 @@ findUser = async (foo) => {
 rsvpEvent = async (event, user) => {
   await Event.updateOne({ _id: event }, { $push: { attendees: user } });
 };
+
+findAttending = async (user) => {
+  return await Event.find({id: { $in: user.attending }});
+}
+
+findHosting = async (user) => {
+  return await Event.find({id: { $in: user.hosting }});
+}
