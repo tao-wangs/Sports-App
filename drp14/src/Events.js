@@ -19,8 +19,43 @@ class Events extends Component {
     this.setState({ body });
   };
 
+  getAttending = async () => {
+    const response = await fetch("/get_attending");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+
+    this.setState({ body: body });
+  };
+
+  getHosting = async () => {
+    const response = await fetch("/get_hosting");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+
+    console.log(body);
+    this.setState({ body: body });
+  };
+
   render() {
-    if (!this.state.body) this.getEvents();
+    if (!this.state.body) {
+      switch (this.props.filter) {
+        case "attending":
+          this.getAttending();
+          break;
+        case "hosting":
+          this.getHosting();
+          break;
+        default:
+          this.getEvents();
+          break;
+      }
+    }
     return this.state.body ? (
       <div>
         {this.state.body.events.map((x) => (

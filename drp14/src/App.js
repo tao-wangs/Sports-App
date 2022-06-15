@@ -6,6 +6,7 @@ import Home from "./Home";
 import Events from "./Events";
 import SignUp from "./SignUp";
 import LogIn from "./LogIn";
+import MyEvents from "./MyEvents";
 
 import "./App.css";
 
@@ -19,8 +20,17 @@ class App extends Component {
               <Route path="/" exact element={<Home />} />
               <Route path="/events" element={<Events />} />
               <Route path="/host" element={<HostEventForm />} />
+              <Route path="/myevents" element={<MyEvents filter="" />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<LogIn />} />
+              <Route
+                path="/myevents/attending"
+                element={<MyEvents filter="attending" />}
+              />
+              <Route
+                path="/myevents/hosting"
+                element={<MyEvents filter="hosting" />}
+              />
             </Routes>
           </header>
         </div>

@@ -11,6 +11,9 @@ class Home extends Component {
         <Link to={"/host"}>
           <button type="button">Host Event</button>
         </Link>
+        <Link to={"/myevents"}>
+          <button type="button">My Events</button>
+        </Link>
         <Link to={"/login"}>
           <button type="button">Log In</button>
         </Link>

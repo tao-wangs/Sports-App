@@ -1,20 +1,46 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { Component } from "react";
 import { Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Events from "./Events";
 
 class MyEvents extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = { filtered: true, header: "" };
+    switch (this.props.filter) {
+      case "attending":
+        this.state.header = "Attending";
+        break;
+      case "hosting":
+        this.state.header = "Hosting";
+        break;
+      default:
+        this.state.filtered = false;
+        break;
+    }
+  }
+
+  handleClick = () => {
+    this.setState({ filtered: true });
+  };
 
   render() {
-    return (
-      <Router>
-        <div>
-          <h1>My Events</h1>
-          <Col>Hosting Events</Col>
-
-          <Col>RSVP Events</Col>
-        </div>
-      </Router>
+    return this.state.filtered ? (
+      <div>
+        <h1>{this.state.header}</h1>
+        <Col>
+          <Events filter={this.props.filter} />
+        </Col>
+      </div>
+    ) : (
+      <div>
+        <Link to="/myevents/attending">
+          <button onClick={this.handleClick}>Attending</button>
+        </Link>
+        <Link to="/myevents/hosting">
+          <button onClick={this.handleClick}>Hosting</button>
+        </Link>
+      </div>
     );
   }
 }
