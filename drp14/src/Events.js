@@ -22,7 +22,7 @@ class Events extends Component {
   render() {
     if (!this.state.body) this.getEvents();
     return this.state.body ? (
-      <div>
+      <div className="event-grid">
         {this.state.body.events.map((x) => (
           <SportingEvent data={x} />
         ))}
