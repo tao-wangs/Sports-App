@@ -20,6 +20,10 @@ class MyEvents extends Component {
     }
   }
 
+  handleClick = () => {
+    this.setState({ filtered: true });
+  };
+
   render() {
     return this.state.filtered ? (
       <div>
@@ -31,10 +35,10 @@ class MyEvents extends Component {
     ) : (
       <div>
         <Link to="/myevents/attending">
-          <button>Attending</button>
+          <button onClick={this.handleClick}>Attending</button>
         </Link>
         <Link to="/myevents/hosting">
-          <button>Hosting</button>
+          <button onClick={this.handleClick}>Hosting</button>
         </Link>
       </div>
     );
