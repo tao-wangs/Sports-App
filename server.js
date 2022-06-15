@@ -56,7 +56,7 @@ app.post("/get_user_id", (req, res) => {
 
 app.post("/post_rsvp", (req, res) => {
   rsvpEvent(req.body.event, req.body.user).then(() => {
-    res.status(200).json({message: "Success"});
+    res.status(200).json({ message: "Interest registered" });
   });
 });
 
@@ -116,6 +116,6 @@ findUser = async (foo) => {
   return await User.find({ email: foo });
 };
 
-rsvpEvent = async(event, user) => {
+rsvpEvent = async (event, user) => {
   await Event.updateOne({ _id: event }, { $push: { attendees: user } });
-}
+};
