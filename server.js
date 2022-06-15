@@ -73,15 +73,21 @@ app.post("/get_hosting", (req, res) => {
 });
 
 app.post("/post_event", (req, res) => {
-  const event = new Event(req.body);
-  event
-    .save()
-    .then((user) => {
-      res.json("Event added successfully");
-    })
-    .catch((err) => {
-      res.status(400).send("Failed to save event");
-    });
+  const userId = sessions[req.cookies.sessionID];
+  if (userId === undefined) {
+    res.status(400).json({ message: "Invalid Cookie" });
+  } else {
+    const event = new Event(req.body);
+    event
+      .save()
+      .then((user) => {
+        res.json("Event added successfully");
+      })
+      .catch((err) => {
+        res.status(400).send("Failed to save event");
+      });
+    hostEvent(event._id, userId);
+  }
 });
 
 app.post("/post_signup", (req, res) => {
