@@ -50,6 +50,16 @@ app.post("/get_user", (req, res) => {
   });
 });
 
+app.post("/get_user_id", (req, res) => {
+  res.json({ user: sessions[req.cookies.sessionID] });
+});
+
+app.post("/post_rsvp", (req, res) => {
+  rsvpEvent(req.body.event, req.body.user).then(() => {
+    res.status(200).json({message: "Success"});
+  });
+});
+
 app.post("/post_event", (req, res) => {
   const event = new Event(req.body);
   event
@@ -85,7 +95,7 @@ app.post("/post_login", (req, res) => {
       if (req.body.password === x[0].password) {
         console.log("successful login");
         const id = uuidv4();
-        sessions[req.body.email] = id;
+        sessions[id] = x[0]._id;
         res
           .clearCookie("sessionID")
           .cookie("sessionID", id)
@@ -105,3 +115,7 @@ findEvents = async () => {
 findUser = async (foo) => {
   return await User.find({ email: foo });
 };
+
+rsvpEvent = async(event, user) => {
+  await Event.updateOne({ _id: event }, { $push: { attendees: user } });
+}
