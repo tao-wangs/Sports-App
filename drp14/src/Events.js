@@ -59,7 +59,15 @@ class Events extends Component {
     return this.state.body ? (
       <div>
         {this.state.body.events.map((x) => (
-          <SportingEvent data={x} />
+          <SportingEvent
+            data={x}
+            rsvp={
+              this.props.filter === "attending" ||
+              this.props.filter === "hosting"
+                ? "hidden"
+                : ""
+            }
+          />
         ))}
       </div>
     ) : (

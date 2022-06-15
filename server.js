@@ -38,26 +38,24 @@ app.get("/", function (req, res) {
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get("/get_attending", (req, res) => {
-  console.log(req);
   const userId = sessions[req.cookies.sessionID];
   if (userId == undefined) {
     res.status(401).json({ message: "Invalid Cookie" });
   } else {
-    findAttending(userId).then(x => {
-      res.json({events: x});
-    })
+    findAttending(userId).then((x) => {
+      res.json({ events: x });
+    });
   }
 });
 
 app.get("/get_hosting", (req, res) => {
-  console.log(req);
   const userId = sessions[req.cookies.sessionID];
   if (userId == undefined) {
     res.status(401).json({ message: "Invalid Cookie" });
   } else {
-    findHosting(userId).then(x => {
-      res.json({events: x});
-    })
+    findHosting(userId).then((x) => {
+      res.json({ events: x });
+    });
   }
 });
 // create a GET route
@@ -82,7 +80,6 @@ app.post("/post_rsvp", (req, res) => {
     res.status(200).json({ message: "Interest registered" });
   });
 });
-
 
 app.post("/post_event", (req, res) => {
   const userId = sessions[req.cookies.sessionID];
@@ -138,7 +135,6 @@ app.post("/post_login", (req, res) => {
   });
 });
 
-
 findEvents = async () => {
   return await Event.find({});
 };
@@ -149,19 +145,19 @@ findUser = async (foo) => {
 
 rsvpEvent = async (event, user) => {
   await Event.updateOne({ _id: event }, { $push: { attendees: user } });
-  await User.updateOne({ _id: user }, { $push: {attending: event} });
+  await User.updateOne({ _id: user }, { $push: { attending: event } });
 };
 
 findAttending = async (userid) => {
-  const user = await User.findOne({_id: userid});
-  return await Event.find({_id: { $in: user.attending }});
-}
+  const user = await User.findOne({ _id: userid });
+  return await Event.find({ _id: { $in: user.attending } });
+};
 
 findHosting = async (userid) => {
-  const user = await User.findOne({_id: userid});
-  return await Event.find({_id: { $in: user.hosting }});
-}
+  const user = await User.findOne({ _id: userid });
+  return await Event.find({ _id: { $in: user.hosting } });
+};
 
 hostEvent = async (event, user) => {
   await User.updateOne({ _id: user }, { $push: { hosting: event } });
-}
+};
