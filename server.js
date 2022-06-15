@@ -61,15 +61,25 @@ app.post("/post_rsvp", (req, res) => {
 });
 
 app.post("/get_attending", (req, res) => {
-  findAttending(req.body.user).then(x => {
-    res.json({events: x});
-  })
+  const userId = sessions[req.cookies.sessionID];
+  if (userId == undefined) {
+    res.status(401).json({ message: "Invalid Cookie" });
+  } else {
+    findAttending(userId).then(x => {
+      res.json({events: x});
+    })
+  }
 });
 
 app.post("/get_hosting", (req, res) => {
-  findHosting(req.body.user).then(x => {
-    res.json({events: x});
-  })
+  const userId = sessions[req.cookies.sessionID];
+  if (userId == undefined) {
+    res.status(401).json({ message: "Invalid Cookie" });
+  } else {
+    findHosting(userId).then(x => {
+      res.json({events: x});
+    })
+  }
 });
 
 app.post("/post_event", (req, res) => {
