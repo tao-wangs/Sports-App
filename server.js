@@ -60,16 +60,34 @@ app.post("/post_rsvp", (req, res) => {
   });
 });
 
+app.post("/get_attending", (req, res) => {
+  findAttending(req.body.user).then(x => {
+    res.json({events: x});
+  })
+});
+
+app.post("/get_hosting", (req, res) => {
+  findHosting(req.body.user).then(x => {
+    res.json({events: x});
+  })
+});
+
 app.post("/post_event", (req, res) => {
-  const event = new Event(req.body);
-  event
-    .save()
-    .then((user) => {
-      res.json("Event added successfully");
-    })
-    .catch((err) => {
-      res.status(400).send("Failed to save event");
-    });
+  const userId = sessions[req.cookies.sessionID];
+  if (userId === undefined) {
+    res.status(400).json({ message: "Invalid Cookie" });
+  } else {
+    const event = new Event(req.body);
+    event
+      .save()
+      .then((user) => {
+        res.json("Event added successfully");
+      })
+      .catch((err) => {
+        res.status(400).send("Failed to save event");
+      });
+    hostEvent(event._id, userId);
+  }
 });
 
 app.post("/post_signup", (req, res) => {
@@ -108,6 +126,7 @@ app.post("/post_login", (req, res) => {
   });
 });
 
+
 findEvents = async () => {
   return await Event.find({});
 };
@@ -118,4 +137,17 @@ findUser = async (foo) => {
 
 rsvpEvent = async (event, user) => {
   await Event.updateOne({ _id: event }, { $push: { attendees: user } });
+  await User.updateOne({ _id: user }, { $push: {attending: event} });
 };
+
+findAttending = async (user) => {
+  return await Event.find({id: { $in: user.attending }});
+}
+
+findHosting = async (user) => {
+  return await Event.find({id: { $in: user.hosting }});
+}
+
+hostEvent = async (event, user) => {
+  await User.updateOne({ _id: user }, { $push: { hosting: event } });
+}
