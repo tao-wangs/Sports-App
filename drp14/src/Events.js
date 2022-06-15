@@ -4,6 +4,7 @@ import { SportingEvent } from "./SportingEvent";
 class Events extends Component {
   state = {
     body: null,
+    filter: "",
   };
 
   // fetching the GET route from the Express server which matches the GET route from server.js
@@ -12,11 +13,12 @@ class Events extends Component {
     const body = await response.json();
 
     if (response.status !== 200) {
-      throw Error(body.message);
+      alert(body.message);
+      return;
     }
 
     console.log(body);
-    this.setState({ body });
+    this.setState({ body: body, filter: "" });
   };
 
   getAttending = async () => {
@@ -24,10 +26,11 @@ class Events extends Component {
     const body = await response.json();
 
     if (response.status !== 200) {
-      throw Error(body.message);
+      alert(body.message);
+      return;
     }
 
-    this.setState({ body });
+    this.setState({ body: body, filter: "attending" });
   };
 
   getHosting = async () => {
@@ -35,15 +38,15 @@ class Events extends Component {
     const body = await response.json();
 
     if (response.status !== 200) {
-      throw Error(body.message);
+      alert(body.message);
+      return;
     }
 
-    console.log(body);
-    this.setState({ body });
+    this.setState({ body: body, filter: "hosting" });
   };
 
   render() {
-    if (!this.state.body) {
+    if (!this.state.body || this.props.filter !== this.state.filter) {
       switch (this.props.filter) {
         case "attending":
           this.getAttending();
@@ -60,6 +63,7 @@ class Events extends Component {
       <div>
         {this.state.body.events.map((x) => (
           <SportingEvent
+            filter={this.props.filter}
             data={x}
             rsvp={
               this.props.filter === "attending" ||

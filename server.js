@@ -40,7 +40,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 app.get("/get_attending", (req, res) => {
   const userId = sessions[req.cookies.sessionID];
   if (userId == undefined) {
-    res.status(401).json({ message: "Invalid Cookie" });
+    res.status(401).json({ message: "User not logged in!" });
   } else {
     findAttending(userId).then((x) => {
       res.json({ events: x });
@@ -51,7 +51,7 @@ app.get("/get_attending", (req, res) => {
 app.get("/get_hosting", (req, res) => {
   const userId = sessions[req.cookies.sessionID];
   if (userId == undefined) {
-    res.status(401).json({ message: "Invalid Cookie" });
+    res.status(401).json({ message: "User not logged in!" });
   } else {
     findHosting(userId).then((x) => {
       res.json({ events: x });
@@ -77,23 +77,23 @@ app.post("/get_user_id", (req, res) => {
 
 app.post("/post_rsvp", (req, res) => {
   rsvpEvent(req.body.event, req.body.user).then(() => {
-    res.status(200).json({ message: "Interest registered" });
+    res.status(200).json({ message: "Spot reserved" });
   });
 });
 
 app.post("/post_event", (req, res) => {
   const userId = sessions[req.cookies.sessionID];
   if (userId === undefined) {
-    res.status(401).json({ message: "Invalid Cookie" });
+    res.status(401).json({ message: "User not logged in!" });
   } else {
     const event = new Event(req.body);
     event
       .save()
       .then((user) => {
-        res.json("Event added successfully");
+        res.json({ message: "Event added successfully" });
       })
       .catch((err) => {
-        res.status(400).send("Failed to save event");
+        res.status(400).json({ message: "Failed to save event" });
       });
     hostEvent(event._id, userId);
   }
@@ -104,11 +104,11 @@ app.post("/post_signup", (req, res) => {
   user
     .save()
     .then((user) => {
-      res.json("User added successfully");
+      res.json({ message: "User added successfully" });
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).send("Failed to save user");
+      res.status(400).json({ message: "Failed to save user" });
     });
 });
 
@@ -120,7 +120,6 @@ app.post("/post_login", (req, res) => {
         .json({ message: `No user found with email: ${req.body.email}` });
     } else {
       if (req.body.password === x[0].password) {
-        console.log("successful login");
         const id = uuidv4();
         sessions[id] = x[0]._id;
         res
@@ -128,7 +127,6 @@ app.post("/post_login", (req, res) => {
           .cookie("sessionID", id)
           .json({ message: "Login successful!" });
       } else {
-        console.log("login unsuccessful");
         res.status(401).json({ message: "Incorrect login credentials" });
       }
     }

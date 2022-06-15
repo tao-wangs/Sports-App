@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Events from "./Events";
 
 class MyEvents extends Component {
   constructor(props) {
     super(props);
-    this.state = { filtered: true, header: "" };
+    this.state = { filter: this.props.filter, filtered: true, header: "" };
     switch (this.props.filter) {
       case "attending":
         this.state.header = "Attending";
@@ -18,28 +17,35 @@ class MyEvents extends Component {
         this.state.filtered = false;
         break;
     }
+
+    this.setFilter = this.setFilter.bind(this);
   }
 
-  handleClick = () => {
-    this.setState({ filtered: true });
+  setFilter = (event) => {
+    this.setState({ filter: event.target.name, filtered: true });
   };
 
   render() {
-    return this.state.filtered ? (
-      <div>
-        <h1>{this.state.header}</h1>
-        <Col>
-          <Events filter={this.props.filter} />
-        </Col>
-      </div>
-    ) : (
+    return (
       <div>
         <Link to="/myevents/attending">
-          <button onClick={this.handleClick}>Attending</button>
+          <button name="attending" onClick={this.setFilter}>
+            Attending
+          </button>
         </Link>
         <Link to="/myevents/hosting">
-          <button onClick={this.handleClick}>Hosting</button>
+          <button name="hosting" onClick={this.setFilter}>
+            Hosting
+          </button>
         </Link>
+        {this.state.filtered ? (
+          <div>
+            <h1>{this.state.filter}</h1>
+            <Events filter={this.state.filter} setFilter={this.setFilter} />
+          </div>
+        ) : (
+          <p></p>
+        )}
       </div>
     );
   }
