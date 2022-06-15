@@ -19,8 +19,24 @@ class Events extends Component {
     this.setState({ body });
   };
 
+  getAttending = async () => {};
+
+  getHosting = async () => {};
+
   render() {
-    if (!this.state.body) this.getEvents();
+    if (!this.state.body) {
+      switch (this.props.filter) {
+        case "attending":
+          this.getAttending();
+          break;
+        case "hosting":
+          this.getHosting();
+          break;
+        default:
+          this.getEvents();
+          break;
+      }
+    }
     return this.state.body ? (
       <div>
         {this.state.body.events.map((x) => (

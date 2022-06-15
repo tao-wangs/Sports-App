@@ -17,6 +17,9 @@ class Home extends Component {
         <Link to={"/signup"}>
           <button type="button">Sign Up</button>
         </Link>
+        <Link to={"/myevents"}>
+          <button type="button">My Events</button>
+        </Link>
       </div>
     );
   }

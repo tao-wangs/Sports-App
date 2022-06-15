@@ -1,4 +1,4 @@
-import Linkify from "react-linkify"
+import Linkify from "react-linkify";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
@@ -44,13 +44,19 @@ class SportingEvent extends Component {
 
   render() {
     return (
-      <Button className="secondary" type="button">
+      <Button className="btn btn-dark" type="button">
         <p>{this.state.name}</p>
         <p>{this.state.location}</p>
         <p>{this.state.date.toLocaleString()}</p>
         <p>{this.state.enddate.toLocaleString()}</p>
-        <Linkify>{this.state.description}</Linkify>
-        <Button type="button" onClick={this.handleRSVP}>
+        <p>
+          <Linkify>{this.state.description}</Linkify>
+        </p>
+        <Button
+          className="btn btn-secondary"
+          type="button"
+          onClick={this.handleRSVP}
+        >
           RSVP
         </Button>
       </Button>
