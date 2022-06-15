@@ -4,6 +4,8 @@ import { SportingEvent } from "./SportingEvent";
 class Events extends Component {
   state = {
     body: null,
+    attending: null,
+    hosting: null
   };
 
   // fetching the GET route from the Express server which matches the GET route from server.js
@@ -18,6 +20,30 @@ class Events extends Component {
     console.log(body);
     this.setState({ body });
   };
+
+  getAttending = async () => {
+    const response = await fetch("get_attending");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+
+    console.log(body);
+    this.setState({attending: body});
+  }
+
+  getHosting = async () => {
+    const response = await fetch("get_hosting");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+
+    console.log(body);
+    this.setState({hosting:body});
+  }
 
   render() {
     if (!this.state.body) this.getEvents();
