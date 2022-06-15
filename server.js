@@ -37,6 +37,29 @@ app.get("/", function (req, res) {
 // This displays message that the server running and listening to specified port
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+app.get("/get_attending", (req, res) => {
+  console.log(req);
+  const userId = sessions[req.cookies.sessionID];
+  if (userId == undefined) {
+    res.status(401).json({ message: "Invalid Cookie" });
+  } else {
+    findAttending(userId).then(x => {
+      res.json({events: x});
+    })
+  }
+});
+
+app.get("/get_hosting", (req, res) => {
+  console.log(req);
+  const userId = sessions[req.cookies.sessionID];
+  if (userId == undefined) {
+    res.status(401).json({ message: "Invalid Cookie" });
+  } else {
+    findHosting(userId).then(x => {
+      res.json({events: x});
+    })
+  }
+});
 // create a GET route
 app.get("/get_events", (req, res) => {
   findEvents().then((x) => {
@@ -60,32 +83,11 @@ app.post("/post_rsvp", (req, res) => {
   });
 });
 
-app.get("/get_attending", (req, res) => {
-  const userId = sessions[req.cookies.sessionID];
-  if (userId == undefined) {
-    res.status(401).json({ message: "Invalid Cookie" });
-  } else {
-    findAttending(userId).then(x => {
-      res.json({events: x});
-    })
-  }
-});
-
-app.get("/get_hosting", (req, res) => {
-  const userId = sessions[req.cookies.sessionID];
-  if (userId == undefined) {
-    res.status(401).json({ message: "Invalid Cookie" });
-  } else {
-    findHosting(userId).then(x => {
-      res.json({events: x});
-    })
-  }
-});
 
 app.post("/post_event", (req, res) => {
   const userId = sessions[req.cookies.sessionID];
   if (userId === undefined) {
-    res.status(400).json({ message: "Invalid Cookie" });
+    res.status(401).json({ message: "Invalid Cookie" });
   } else {
     const event = new Event(req.body);
     event
@@ -150,12 +152,14 @@ rsvpEvent = async (event, user) => {
   await User.updateOne({ _id: user }, { $push: {attending: event} });
 };
 
-findAttending = async (user) => {
-  return await Event.find({id: { $in: user.attending }});
+findAttending = async (userid) => {
+  const user = await User.findOne({_id: userid});
+  return await Event.find({_id: { $in: user.attending }});
 }
 
-findHosting = async (user) => {
-  return await Event.find({id: { $in: user.hosting }});
+findHosting = async (userid) => {
+  const user = await User.findOne({_id: userid});
+  return await Event.find({_id: { $in: user.hosting }});
 }
 
 hostEvent = async (event, user) => {

@@ -44,7 +44,7 @@ class SportingEvent extends Component {
 
   render() {
     return (
-      <Button className="btn btn-dark" type="button">
+      <Button className="btn btn-dark m-3" type="button">
         <p>{this.state.name}</p>
         <p>{this.state.location}</p>
         <p>{this.state.date.toLocaleString()}</p>

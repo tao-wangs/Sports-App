@@ -27,7 +27,7 @@ class Events extends Component {
       throw Error(body.message);
     }
 
-    this.setState({ body: body });
+    this.setState({ body });
   };
 
   getHosting = async () => {
@@ -39,7 +39,7 @@ class Events extends Component {
     }
 
     console.log(body);
-    this.setState({ body: body });
+    this.setState({ body });
   };
 
   render() {
