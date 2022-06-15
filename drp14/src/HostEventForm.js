@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
+
 class HostEventForm extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +9,7 @@ class HostEventForm extends Component {
       location: "",
       date: "",
       time: "",
+      duration: "",
       description: "",
       submit: false,
     };
@@ -36,10 +38,10 @@ class HostEventForm extends Component {
       <Navigate to="/" />
     ) : (
       <div className="form-list">
-        <form onSubmit={this.handleSubmit}>
+        { <form onSubmit={this.handleSubmit}>
           <li>
             <label>
-              Enter Name Here:
+              Enter Event Name Here:
               <input
                 name="name"
                 type="text"
@@ -72,6 +74,17 @@ class HostEventForm extends Component {
           </li>
           <li>
             <label>
+              Enter Duration Here:
+              <input
+                name="duration"
+                type="text"
+                value={this.state.duration}
+                onChange={this.handleChange}
+              />
+            </label>
+          </li>
+          <li>
+            <label>
               Enter Description Here:
               <textarea
                 name="description"
@@ -82,7 +95,7 @@ class HostEventForm extends Component {
             </label>
           </li>
           <input type="submit" value="Submit" />
-        </form>
+        </form> }
       </div>
     );
   }

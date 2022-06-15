@@ -8,6 +8,7 @@ const EventSchema = new mongoose.Schema({
   description: String,
   location: String,
   date: Date,
+  duration: String,
 });
 
 const Event = mongoose.model("Event", EventSchema);
