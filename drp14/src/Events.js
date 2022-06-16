@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
 
 class Events extends Component {
-  state = {
-    body: null,
-    filter: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      body: null,
+      filter: "",
+    };
+  }
 
   // fetching the GET route from the Express server which matches the GET route from server.js
   getEvents = async () => {
@@ -17,7 +20,6 @@ class Events extends Component {
       return;
     }
 
-    console.log(body);
     this.setState({ body: body, filter: "" });
   };
 
@@ -60,26 +62,34 @@ class Events extends Component {
             break;
         }
       }
-    }
 
-    return this.state.body ? (
-      <div className="event-grid">
-        {this.state.body.events.map((x) => (
-          <SportingEvent
-            filter={this.props.filter}
-            data={x}
-            rsvp={
-              this.props.filter === "attending" ||
-              this.props.filter === "hosting"
-                ? "hidden"
-                : ""
-            }
-          />
-        ))}
-      </div>
-    ) : (
-      <p>Fetching events</p>
-    );
+      return this.state.body ? (
+        <div className="event-grid">
+          {this.state.body.events.map((x) => (
+            <SportingEvent
+              filter={this.props.filter}
+              data={x}
+              rsvp={
+                this.props.filter === "attending" ||
+                this.props.filter === "hosting"
+                  ? "hidden"
+                  : ""
+              }
+            />
+          ))}
+        </div>
+      ) : (
+        <p>Fetching events</p>
+      );
+    } else {
+      return (
+        <div className="event-grid">
+          {this.props.events.map((x) => (
+            <SportingEvent filter={this.props.filter} data={x} />
+          ))}
+        </div>
+      );
+    }
   }
 }
 

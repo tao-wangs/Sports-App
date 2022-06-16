@@ -72,13 +72,23 @@ app.post("/get_user", (req, res) => {
 });
 
 app.post("/filter_events", (req, res) => {
-  findFilteredEvents(req.filter).then((x) => {
-    res.send({ events: x });
-  })
+  if (req.body.query === "") {
+    findEvents().then((x) => {
+      res.send({ events: x });
+    });
+  } else {
+    findFilteredEvents(req.body.query).then((x) => {
+      res.send({ events: x });
+    });
+  }
 });
 
 app.post("/get_user_id", (req, res) => {
-  res.json({ user: sessions[req.cookies.sessionID] });
+  if (!sessions[req.cookies.sessionID]) {
+    res.status(401).json({ message: "User not logged in!" });
+  } else {
+    res.json({ user: sessions[req.cookies.sessionID] });
+  }
 });
 
 app.post("/post_rsvp", (req, res) => {
@@ -144,8 +154,8 @@ findEvents = async () => {
 };
 
 findFilteredEvents = async (sport) => {
-  return await Event.find({sport: sport});
-}
+  return await Event.find({ sport: sport });
+};
 
 findUser = async (foo) => {
   return await User.find({ email: foo });

@@ -38,7 +38,6 @@ class SportingEvent extends Component {
     return (
       <Button className="btn btn-dark m-3" type="button">
         <p>{this.props.data.name}</p>
-        <p>{this.props.data.sport}</p>
         <p>{this.props.data.location}</p>
         <p>{new Date(this.props.data.date).toLocaleString()}</p>
         <p>{new Date(this.props.data.enddate).toLocaleString()}</p>
