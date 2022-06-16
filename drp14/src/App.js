@@ -17,9 +17,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
           <main style={{minHeight: "95vh"}}>
             <Router>
+              <Header />
               <div className="App">
                 <header className="App-header">
                     <Routes>
