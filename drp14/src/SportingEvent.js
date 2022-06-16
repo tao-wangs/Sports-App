@@ -6,22 +6,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class SportingEvent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: props.data._id,
-      name: props.data.name,
-      location: props.data.location,
-      date: new Date(props.data.date),
-      enddate: new Date(props.data.enddate),
-      description: props.data.description,
-    };
-
     this.handleRSVP = this.handleRSVP.bind(this);
   }
 
   async handleRSVP(event) {
     event.preventDefault();
     const state = {
-      event: this.state.id,
+      event: this.props.data._id,
       user: document.cookie,
     };
     const params = {
@@ -45,14 +36,15 @@ class SportingEvent extends Component {
 
   render() {
     return (
-      <Button className="btn btn-dark" type="button">
-        <p>{this.state.name}</p>
-        <p>{this.state.location}</p>
-        <p>{this.state.date.toLocaleString()}</p>
-        <p>{this.state.enddate.toLocaleString()}</p>
+      <Button className="btn btn-dark m-3" type="button">
+        <p>{this.props.data.name}</p>
+        <p>{this.props.data.location}</p>
+        <p>{new Date(this.props.data.date).toLocaleString()}</p>
+        <p>{new Date(this.props.data.enddate).toLocaleString()}</p>
         <p>
-          <Linkify>{this.state.description}</Linkify>
+          <Linkify>{this.props.data.description}</Linkify>
         </p>
+
         {this.props.rsvp === "hidden" ? (
           <p></p>
         ) : (

@@ -21,14 +21,21 @@ class HostEventForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state),
     };
-    fetch("/post_event", params);
+    
+    const response = await fetch("/post_event", params);
+    const body = await response.json();
+    if (response.status !== 200) {
+      alert(body.message);
+      return;
+    }
+
     this.setState({ submit: true });
   }
 
