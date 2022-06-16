@@ -46,19 +46,22 @@ class Events extends Component {
   };
 
   render() {
-    if (!this.state.body || this.props.filter !== this.state.filter) {
-      switch (this.props.filter) {
-        case "attending":
-          this.getAttending();
-          break;
-        case "hosting":
-          this.getHosting();
-          break;
-        default:
-          this.getEvents();
-          break;
+    if (!this.props.events) {
+      if (!this.state.body || this.props.filter !== this.state.filter) {
+        switch (this.props.filter) {
+          case "attending":
+            this.getAttending();
+            break;
+          case "hosting":
+            this.getHosting();
+            break;
+          default:
+            this.getEvents();
+            break;
+        }
       }
     }
+
     return this.state.body ? (
       <div className="event-grid">
         {this.state.body.events.map((x) => (

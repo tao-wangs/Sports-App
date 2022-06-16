@@ -1,18 +1,16 @@
 import React, { Component } from "react";
-import {Button} from "react-bootstrap"
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Events from "./Events";
 
 class MyEvents extends Component {
   constructor(props) {
     super(props);
-    this.state = { filter: this.props.filter, filtered: true, header: "" };
+    this.state = { filter: this.props.filter, filtered: true };
     switch (this.props.filter) {
       case "attending":
-        this.state.header = "Attending";
         break;
       case "hosting":
-        this.state.header = "Hosting";
         break;
       default:
         this.state.filtered = false;
@@ -29,19 +27,29 @@ class MyEvents extends Component {
   render() {
     return (
       <div>
+        <h1>My Events</h1>
         <Link to="/myevents/attending">
-          <Button name="attending" className="secondary m-2 btn-lg" variant="light" onClick={this.setFilter}>
+          <Button
+            name="attending"
+            className="secondary m-2 btn-lg"
+            variant="light"
+            onClick={this.setFilter}
+          >
             Attending
           </Button>
         </Link>
         <Link to="/myevents/hosting">
-          <Button name="hosting" className="secondary m-2 btn-lg" variant="light" onClick={this.setFilter}>
+          <Button
+            name="hosting"
+            className="secondary m-2 btn-lg"
+            variant="light"
+            onClick={this.setFilter}
+          >
             Hosting
           </Button>
         </Link>
         {this.state.filtered ? (
           <div>
-            <h1>{this.state.filter}</h1>
             <Events filter={this.state.filter} setFilter={this.setFilter} />
           </div>
         ) : (
