@@ -1,6 +1,7 @@
 import Linkify from "react-linkify";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class SportingEvent extends Component {
   constructor(props) {

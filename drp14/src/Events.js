@@ -60,7 +60,7 @@ class Events extends Component {
       }
     }
     return this.state.body ? (
-      <div>
+      <div className="event-grid">
         {this.state.body.events.map((x) => (
           <SportingEvent
             filter={this.props.filter}
