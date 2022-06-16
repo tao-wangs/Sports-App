@@ -14,8 +14,12 @@ class Header extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="m-auto">
-              <Link to="/">Home</Link>
-              <Link to="/myevents">My Events</Link>
+              <Link to="/">
+                <Nav.Link>Home</Nav.Link>
+              </Link>
+              <Link to="/myevents">
+                <Nav.Link>My Events</Nav.Link>
+              </Link>
               <NavDropdown title="User" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
                 <NavDropdown.Divider />
