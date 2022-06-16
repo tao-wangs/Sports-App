@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Button} from "react-bootstrap"
 import { Link } from "react-router-dom";
 import Events from "./Events";
 
@@ -29,14 +30,14 @@ class MyEvents extends Component {
     return (
       <div>
         <Link to="/myevents/attending">
-          <button name="attending" onClick={this.setFilter}>
+          <Button name="attending" className="secondary m-2 btn-lg" variant="light" onClick={this.setFilter}>
             Attending
-          </button>
+          </Button>
         </Link>
         <Link to="/myevents/hosting">
-          <button name="hosting" onClick={this.setFilter}>
+          <Button name="hosting" className="secondary m-2 btn-lg" variant="light" onClick={this.setFilter}>
             Hosting
-          </button>
+          </Button>
         </Link>
         {this.state.filtered ? (
           <div>
@@ -44,7 +45,7 @@ class MyEvents extends Component {
             <Events filter={this.state.filter} setFilter={this.setFilter} />
           </div>
         ) : (
-          <p></p>
+          <p>{"No Events " + this.state.filter}</p>
         )}
       </div>
     );
