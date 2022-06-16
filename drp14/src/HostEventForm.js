@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
+import { Row } from "react-bootstrap";
 
 class HostEventForm extends Component {
   constructor(props) {
@@ -47,72 +48,68 @@ class HostEventForm extends Component {
       <div className="form-list">
         {
           <form onSubmit={this.handleSubmit}>
-            <li>
-              <label>
-                Enter Event Name Here:
-                <input
-                  name="name"
-                  type="text"
-                  value={this.state.name}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </li>
-            <li>
-              <label>
-                Enter Sport Here:
-                <input
-                  name="sport"
-                  type="text"
-                  value={this.state.sport}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </li>
-            <li>
-              <label>
-                Enter Location Here:
-                <input
-                  name="location"
-                  type="text"
-                  value={this.state.location}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </li>
-            <li>
-              <label>
-                Enter Start Date Here:
-                <input
-                  name="date"
-                  type="datetime-local"
-                  value={this.state.date}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </li>
-            <li>
-              <label>
-                Enter End Date Here:
-                <input
-                  name="enddate"
-                  type="datetime-local"
-                  value={this.state.enddate}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </li>
-            <li>
-              <label>
-                Enter Description Here:
-                <textarea
-                  name="description"
-                  type="text"
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </li>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Event Name"
+                name="name"
+                type="text"
+                value={this.state.name}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Sport"
+                name="sport"
+                type="text"
+                value={this.state.sport}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Location"
+                name="location"
+                type="text"
+                value={this.state.location}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <Row>
+              <textarea
+                className="form-control mr-sm-2 m-2"
+                placeholder="Description"
+                name="description"
+                type="text"
+                value={this.state.description}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <label>Start Date</label>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Start Date"
+                name="date"
+                type="datetime-local"
+                value={this.state.date}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <label>End Date</label>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="End Date"
+                name="enddate"
+                type="datetime-local"
+                value={this.state.enddate}
+                onChange={this.handleChange}
+              />
+            </Row>
             <input type="submit" value="Submit" />
           </form>
         }

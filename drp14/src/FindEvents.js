@@ -39,13 +39,13 @@ class FindEvents extends Component {
             name="query"
             value={this.state.query}
             onChange={this.handleChange}
-            className="form-control mr-sm-2"
+            className="form-control mr-sm-2 m-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
           />
           <button
-            className="btn btn-outline-success my-2 my-sm-0"
+            className="btn btn-outline-success my-2 my-sm-0 m-2"
             type="submit"
           >
             Search
