@@ -71,6 +71,12 @@ app.post("/get_user", (req, res) => {
   });
 });
 
+app.post("/filter_events", (req, res) => {
+  findFilteredEvents(req.filter).then((x) => {
+    res.send({ events: x });
+  })
+});
+
 app.post("/get_user_id", (req, res) => {
   res.json({ user: sessions[req.cookies.sessionID] });
 });
@@ -136,6 +142,10 @@ app.post("/post_login", (req, res) => {
 findEvents = async () => {
   return await Event.find({});
 };
+
+findFilteredEvents = async (sport) => {
+  return await Event.find({sport: sport});
+}
 
 findUser = async (foo) => {
   return await User.find({ email: foo });
