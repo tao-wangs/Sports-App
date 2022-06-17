@@ -21,14 +21,6 @@ class Home extends Component {
             </Col>
           </Row>  
           <Row>
-            <Col>
-              <Link to={"/login"}>
-                <Button className="secondary m-3 btn-lg" variant="light">Log In</Button>
-              </Link>
-              <Link to={"/signup"}>
-              <Button className="secondary m-3 btn-lg" variant="light">Sign Up</Button>
-              </Link>
-            </Col>
           </Row>
         </Container>
       </div>

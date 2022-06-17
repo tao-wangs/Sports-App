@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
 import { Row } from "react-bootstrap";
+import { Link } from "react-router-dom"
 class LogIn extends Component {
   constructor(props) {
     super(props);
@@ -70,7 +71,13 @@ class LogIn extends Component {
               onChange={this.handleChange}
             />
           </Row>
-          <input type="submit" value="Submit" />
+          <div className="w-100 text-center mt-2">
+            Need an account?  
+            <a href="/signup">
+              Sign Up
+            </a>
+          </div>
+          <input className="m-2" type="submit" value="Submit" />
         </form>
       </div>
     );
