@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
 import { Row } from "react-bootstrap";
-import { Link } from "react-router-dom"
+
 class LogIn extends Component {
   constructor(props) {
     super(props);
