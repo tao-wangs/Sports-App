@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
 import { Row } from "react-bootstrap";
 
@@ -73,9 +73,9 @@ class LogIn extends Component {
           </Row>
           <div className="w-100 text-center mt-2">
             Need an account?  
-            <a href="/signup">
+            <Link to="/signup">
               Sign Up
-            </a>
+            </Link>
           </div>
           <input className="m-2" type="submit" value="Submit" />
         </form>
