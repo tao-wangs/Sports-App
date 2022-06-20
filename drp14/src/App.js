@@ -1,23 +1,20 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import HostEventForm from "./HostEventForm";
-import Home from "./Home";
-import FindEvents from "./FindEvents";
-import SignUp from "./SignUp";
-import LogIn from "./LogIn";
-import MyEvents from "./MyEvents";
 
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
+import Home from "./Home"
 
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <main style={{ minHeight: "95vh" }}>
+      <div className="app">
+        <Header/>
+        <Home/>
+        <Footer/>
+      </div>
+        /* <main style={{ minHeight: "95vh" }}>
           <Router>
             <Header />
             <div className="App">
@@ -42,8 +39,7 @@ class App extends Component {
             </div>
           </Router>
         </main>
-        <Footer />
-      </div>
+        <Footer /> */
     );
   }
 }

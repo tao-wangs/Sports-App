@@ -15,7 +15,7 @@ class Footer extends Component {
         <Container>
           <Row>
             <Col className="text-center py-3">
-              Copyright &copy; Sports Event Website
+              Copyright &copy; activ charlie louis tao
             </Col>
           </Row>
         </Container>
