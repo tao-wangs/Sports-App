@@ -1,0 +1,21 @@
+.signup {
+  display: flex;
+  background-color: rgb(112, 182, 235);
+  height: 85vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup__box > h1 {
+  padding-left: 15px;
+  text-align:center;
+}
+
+.signup__box > p {
+  margin-left: 50px;
+}
+
+.submit-button {
+  margin-left: 75px; 
+  margin-top: 5px;
+}
