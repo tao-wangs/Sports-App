@@ -24,13 +24,26 @@ class Header extends Component {
 
         <div className='header__right'>
           <NavLink 
-          className='link' 
+          className='host-link' 
           to='/host'
-          style={{textDecoration: 'none', color: 'inherit'}}
-          >Host an Event</NavLink>
-          <SportsSoccerIcon />
+          style={{textDecoration: 'inherit', color: 'inherit'}}>
+            Host an Event
+          </NavLink>
+
+          <NavLink
+            className='myevents-link'
+            to='/myevents'
+            style={{textDecoration: 'inherit', color: 'inherit'}}>
+            <SportsSoccerIcon />
+          </NavLink>
           <ExpandMoreIcon/>
-          <Avatar />
+
+          <NavLink
+            className='login-link'
+            to='/login'
+            style={{textDecoration: 'inherit', color: 'inherit'}}>
+            <Avatar />
+          </NavLink>
         </div>
       </div>
       );
