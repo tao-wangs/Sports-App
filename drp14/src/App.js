@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import Home from "./Home"
+import Home from "./pages/home/Home"
 
-import FindEvents from "./FindEvents"
-import HostEventForm from "./HostEventForm"
-import SignUp from "./SignUp"
-import LogIn from "./LogIn"
-import MyEvents from "./MyEvents"
+import FindEvents from "./pages/events/FindEvents"
+import HostEventForm from "./pages/host/HostEventForm"
+import SignUp from "./pages/auth/SignUp"
+import LogIn from "./pages/auth/LogIn"
+import MyEvents from "./pages/myevents/MyEvents"
 class App extends Component {
   render() {
     return (
