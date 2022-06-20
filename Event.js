@@ -9,10 +9,20 @@ const EventSchema = new mongoose.Schema({
     required: true,
   },
   description: String,
-  location: String,
-  date: Date,
+  location: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
   enddate: Date,
-  attendees: [ObjectId]
+  sport: {
+    type: String,
+    required: true,
+  },
+  attendees: [ObjectId],
 });
 
 const Event = mongoose.model("Event", EventSchema);

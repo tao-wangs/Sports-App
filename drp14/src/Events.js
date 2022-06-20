@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
 
 class Events extends Component {
-  state = {
-    body: null,
-    filter: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      body: null,
+      filter: "",
+    };
+  }
 
   // fetching the GET route from the Express server which matches the GET route from server.js
   getEvents = async () => {
@@ -17,7 +20,6 @@ class Events extends Component {
       return;
     }
 
-    console.log(body);
     this.setState({ body: body, filter: "" });
   };
 
@@ -46,37 +48,48 @@ class Events extends Component {
   };
 
   render() {
-    if (!this.state.body || this.props.filter !== this.state.filter) {
-      switch (this.props.filter) {
-        case "attending":
-          this.getAttending();
-          break;
-        case "hosting":
-          this.getHosting();
-          break;
-        default:
-          this.getEvents();
-          break;
+    if (!this.props.events) {
+      if (!this.state.body || this.props.filter !== this.state.filter) {
+        switch (this.props.filter) {
+          case "attending":
+            this.getAttending();
+            break;
+          case "hosting":
+            this.getHosting();
+            break;
+          default:
+            this.getEvents();
+            break;
+        }
       }
+
+      return this.state.body ? (
+        <div className="event-grid">
+          {this.state.body.events.map((x) => (
+            <SportingEvent
+              filter={this.props.filter}
+              data={x}
+              rsvp={
+                this.props.filter === "attending" ||
+                this.props.filter === "hosting"
+                  ? "hidden"
+                  : ""
+              }
+            />
+          ))}
+        </div>
+      ) : (
+        <p>Fetching events</p>
+      );
+    } else {
+      return (
+        <div className="event-grid">
+          {this.props.events.map((x) => (
+            <SportingEvent filter={this.props.filter} data={x} />
+          ))}
+        </div>
+      );
     }
-    return this.state.body ? (
-      <div className="event-grid">
-        {this.state.body.events.map((x) => (
-          <SportingEvent
-            filter={this.props.filter}
-            data={x}
-            rsvp={
-              this.props.filter === "attending" ||
-              this.props.filter === "hosting"
-                ? "hidden"
-                : ""
-            }
-          />
-        ))}
-      </div>
-    ) : (
-      <p>Fetching events</p>
-    );
   }
 }
 

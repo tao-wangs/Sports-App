@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
+import { Row } from "react-bootstrap";
 
 class SignUp extends Component {
   constructor(props) {
@@ -56,39 +57,36 @@ class SignUp extends Component {
     ) : (
       <div className="form-list">
         <form onSubmit={this.handleSubmit}>
-          <li>
-            <label>
-              Enter email here:
-              <input
-                name="email"
-                type="text"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-            </label>
-          </li>
-          <li>
-            <label>
-              Enter password:
-              <input
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-            </label>
-          </li>
-          <li>
-            <label>
-              Confirm password:
-              <input
-                name="confirmedPassword"
-                type="password"
-                value={this.state.confirmedPassword}
-                onChange={this.handleChange}
-              />
-            </label>
-          </li>
+          <Row>
+            <input
+              className="form-control mr-sm-2 m-2"
+              placeholder="Email"
+              name="email"
+              type="text"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </Row>
+          <Row>
+            <input
+              className="form-control mr-sm-2 m-2"
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+          </Row>
+          <Row>
+            <input
+              className="form-control mr-sm-2 m-2"
+              placeholder="Confirm Password"
+              name="confirmedPassword"
+              type="password"
+              value={this.state.confirmedPassword}
+              onChange={this.handleChange}
+            />
+          </Row>
           <input type="submit" value="Submit" />
         </form>
       </div>

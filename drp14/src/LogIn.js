@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
+import { Row } from "react-bootstrap";
+
 class LogIn extends Component {
   constructor(props) {
     super(props);
@@ -47,31 +49,35 @@ class LogIn extends Component {
     return this.state.submit ? (
       <Navigate to="/" />
     ) : (
-      <div className="form-list">
-        <form onSubmit={this.handleSubmit}>
-          <li>
-            <label>
-              Enter email here:
-              <input
-                name="email"
-                type="text"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-            </label>
-          </li>
-          <li>
-            <label>
-              Enter password:
-              <input
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-            </label>
-          </li>
-          <input type="submit" value="Submit" />
+      <div>
+        <form onSubmit={this.handleSubmit} className="form-inline my-2 my-lg-0">
+          <Row>
+            <input
+              className="form-control mr-sm-2 m-2"
+              placeholder="Email"
+              name="email"
+              type="text"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </Row>
+          <Row>
+            <input
+              className="form-control mr-sm-2 m-2"
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+          </Row>
+          <div className="w-100 text-center mt-2">
+            Need an account?  
+            <Link to="/signup">
+              Sign Up
+            </Link>
+          </div>
+          <input className="m-2" type="submit" value="Submit" />
         </form>
       </div>
     );
