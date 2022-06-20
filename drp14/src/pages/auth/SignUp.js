@@ -93,45 +93,10 @@ class SignUp extends Component {
             variant="outlined" 
             className="submit-button" 
             type="submit" 
-            value="Submit" />
+            value="Sign Up" />
         </form>
         </div>
       </div>
-      // <div className="form-list">
-      //   <form onSubmit={this.handleSubmit}>
-      //     <Row>
-      //       <input
-      //         className="form-control mr-sm-2 m-2"
-      //         placeholder="Email"
-      //         name="email"
-      //         type="text"
-      //         value={this.state.email}
-      //         onChange={this.handleChange}
-      //       />
-      //     </Row>
-      //     <Row>
-      //       <input
-      //         className="form-control mr-sm-2 m-2"
-      //         placeholder="Password"
-      //         name="password"
-      //         type="password"
-      //         value={this.state.password}
-      //         onChange={this.handleChange}
-      //       />
-      //     </Row>
-      //     <Row>
-      //       <input
-      //         className="form-control mr-sm-2 m-2"
-      //         placeholder="Confirm Password"
-      //         name="confirmedPassword"
-      //         type="password"
-      //         value={this.state.confirmedPassword}
-      //         onChange={this.handleChange}
-      //       />
-      //     </Row>
-      //     <input type="submit" value="Submit" />
-      //   </form>
-      // </div>
     );
   }
 }
