@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import "./Banner.css";
-import { Button } from "@mui/material"
+import { Button } from "@mui/material";
+// import { Link } from "react-router-dom";
 
 class Banner extends Component {
-  state = {  } 
+  state = {  }
   
   render() { 
     return (
@@ -11,7 +12,9 @@ class Banner extends Component {
         <div className='banner__info'>
           <h1>Get out and stretch your imagination</h1>
           <h5>Discover a different kind of hobby to uncover the hidden gems near you</h5>
-          <Button variant="outlined">Find an Event</Button>
+          {/* <Link to="/events"> */}
+            <Button variant="outlined">Find an Event</Button>
+          {/* </Link> */}
         </div>
       </div>
     );

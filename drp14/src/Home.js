@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Button, Container, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import Banner from "./components/banner/Banner"
 class Home extends Component {
   render() {
