@@ -1,5 +1,7 @@
+
+
 .banner {
-  background: url("../../images/1280x720.png") center center;
+  background: url("../../images/home.png") center center;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10,27 +12,38 @@
 .banner__info {
   background-color: white;
   color:black;
-  padding-top: 25vh;
-  padding-left: 200px;
+  padding-top: 10vh;
+  padding-left: 300px;
   padding-right: 50px;
   padding-bottom: 40px;
-  width: 50vw;
+  width: 43vw;
 }
 
 .banner__info > h1 {
+  font-family: 'Comfortaa', cursive;
   margin-left: 50px;
+  font-weight: 700;
+  font-size: 100px;
+  background: -webkit-linear-gradient(rgb(29, 207, 189), rgb(21, 98, 140));
+  /* background: -webkit-linear-gradient(rgb(21, 98, 140), rgb(29, 207, 189));  */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .banner__info > h5 {
-  margin-left:60px;
+  text-align: left;
+  color: rgb(0, 0, 0);
+  margin-left:50px;
+  font-weight: 600;
+  font-size: 25px;
 }
 
 .banner__info > button {
   background-color: rgb(33, 150, 168);
   color: white;
   text-transform: inherit;
-  margin-top: 100px;
-  margin-left: 250px;
+  margin-top: 70px;
+  margin-left: 240px;
   font-weight: 600;
   width: 250px;
   height: 75px;
