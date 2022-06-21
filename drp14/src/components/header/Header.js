@@ -13,7 +13,7 @@ class Header extends Component {
         <Link to="/">
           <img 
           className='header__icon' 
-          src='https://picsum.photos/200'
+          src='/logo.png'
           alt=''/>
         </Link>
       
