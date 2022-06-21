@@ -8,6 +8,7 @@ class FindEvents extends Component {
       query: "",
       search: false,
       events: [],
+      toggle: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,15 +21,20 @@ class FindEvents extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(this.state),
+      body: JSON.stringify({ query: this.state.query }),
     };
+
     const response = await fetch("/filter_events", params);
     const body = await response.json();
-    console.log(body);
-    this.setState({ events: body.events, search: true });
+    this.setState({
+      events: body.events,
+      search: true,
+      toggle: !this.state.toggle,
+    });
   }
 
   render() {
@@ -44,14 +50,12 @@ class FindEvents extends Component {
             placeholder="Search"
             aria-label="Search"
           />
-          <button
-            className="btn btn-outline-success my-2 my-sm-0 m-2"
-            type="submit"
-          >
-            Search
-          </button>
         </form>
-        {this.state.search ? <Events events={this.state.events} /> : <Events />}
+        {this.state.search ? (
+          <Events events={this.state.events} filter={this.state.toggle} />
+        ) : (
+          <Events />
+        )}
       </div>
     );
   }
