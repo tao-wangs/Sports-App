@@ -3,10 +3,15 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
+const multer = require("multer");
+const fs = require("fs");
+
+const upload = multer({ dest: 'uploads/' });
 
 //database stuff starts here
 const Event = require("./Event");
 const User = require("./User");
+const Image = require("./Image");
 
 const mongoose = require("mongoose");
 mongoose.connect(
@@ -69,6 +74,21 @@ app.post("/get_user", (req, res) => {
   findUser(req.body.email).then((x) => {
     res.send({ users: x.length });
   });
+});
+
+app.post("/upload_image", upload.single('image'), (req, res, next) => {
+  console.log(req.file);
+  const data = fs.readFileSync(req.file.path);
+  const image = new Image({data: data, contentType: req.file.mimetype});
+  image
+    .save()
+    .then((user) => {
+      res.json({ message: "Event added successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({ message: "Failed to save event" });
+    });
 });
 
 app.post("/filter_events", (req, res) => {

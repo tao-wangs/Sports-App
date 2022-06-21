@@ -32,10 +32,18 @@ class HostEventForm extends Component {
   }
 
   async handleImageUpload() {
-    const formData = new FormData();
-    formData.append("imageFile", this.state.selectedFile, this.state.selectedFile.name);
     console.log(this.state.selectedFile);
     this.setState({ image: URL.createObjectURL(this.state.selectedFile) });
+    const data = new FormData();
+    data.append("image", this.state.selectedFile);
+    const params = {
+      method: "POST",
+      body: data,
+    }
+    console.log(params.file);
+    const response = await fetch("/upload_image", params);
+    const body = await response.json();
+    console.log(body.message);
   }
 
   async handleSubmit(event) {
