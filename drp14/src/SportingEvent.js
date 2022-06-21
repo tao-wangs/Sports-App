@@ -1,6 +1,7 @@
 import Linkify from "react-linkify";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import { Buffer } from "buffer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class SportingEvent extends Component {
@@ -44,6 +45,15 @@ class SportingEvent extends Component {
         <p>
           <Linkify>{this.props.data.description}</Linkify>
         </p>
+        {this.props.data.pictures.map((x) => {
+          const img = Buffer.from(x.data.data);
+          return (
+            <img
+              src={`data:${x.contentType};base64,${img.toString("base64")}`}
+              alt=""
+            />
+          );
+        })}
 
         {this.props.rsvp === "hidden" ? (
           <p></p>

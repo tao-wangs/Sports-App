@@ -15,7 +15,7 @@ class HostEventForm extends Component {
       submit: false,
       selectedFile: "",
       image: "",
-      images: []
+      images: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,14 +34,22 @@ class HostEventForm extends Component {
 
   async handleImageUpload() {
     console.log(this.state.selectedFile);
+
+    if (
+      this.state.selectedFile !== "" &&
+      (this.state.selectedFile.size > 4, 194, 304)
+    ) {
+      alert("Image is too big! Maximum size is 4MB");
+      return;
+    }
+
     this.setState({ image: URL.createObjectURL(this.state.selectedFile) });
     const data = new FormData();
     data.append("image", this.state.selectedFile);
     const params = {
       method: "POST",
       body: data,
-    }
-    console.log(params.file);
+    };
     const response = await fetch("/upload_image", params);
     const body = await response.json();
     if (response.status !== 200) {
@@ -147,12 +155,14 @@ class HostEventForm extends Component {
                 value={this.state.imageText}
                 onChange={this.handleImageSelect}
               />
-              <Button onClick={this.handleImageUpload}>
-                Upload
-              </Button>
+              <Button onClick={this.handleImageUpload}>Upload</Button>
             </Row>
             <input type="submit" value="Submit" />
-            {(this.state.image === "") ? <p/> : <img src={this.state.image} alt="" />}
+            {this.state.image === "" ? (
+              <p />
+            ) : (
+              <img src={this.state.image} alt="" />
+            )}
           </form>
         }
       </div>

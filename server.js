@@ -4,9 +4,9 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
-const fs = require("fs")
+const fs = require("fs");
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: "uploads/" });
 
 //database stuff starts here
 const Event = require("./Event");
@@ -76,10 +76,9 @@ app.post("/get_user", (req, res) => {
   });
 });
 
-app.post("/upload_image", upload.single('image'), (req, res, next) => {
-  console.log(req.file);
+app.post("/upload_image", upload.single("image"), (req, res, next) => {
   const data = fs.readFileSync(req.file.path);
-  const image = new Image({data: data, contentType: req.file.mimetype});
+  const image = new Image({ data: data, contentType: req.file.mimetype });
   image
     .save()
     .then((user) => {
@@ -207,5 +206,5 @@ hostEvent = async (event, user) => {
 };
 
 findImages = async (event) => {
-  return await Image.find({ _id: {$in: event.images} });
-}
+  return await Image.find({ _id: { $in: event.images } });
+};
