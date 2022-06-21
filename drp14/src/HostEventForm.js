@@ -139,7 +139,7 @@ class HostEventForm extends Component {
               </Button>
             </Row>
             <input type="submit" value="Submit" />
-            {(this.state.image === "") ? <p/> : <img src={this.state.image} />}
+            {(this.state.image === "") ? <p/> : <img src={this.state.image} alt="" />}
           </form>
         }
       </div>
