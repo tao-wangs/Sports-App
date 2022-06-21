@@ -23,6 +23,7 @@ const EventSchema = new mongoose.Schema({
     required: true,
   },
   attendees: [ObjectId],
+  images: [ObjectId],
 });
 
 const Event = mongoose.model("Event", EventSchema);
