@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Events from "./Events";
+import Events from "../events/Events";
 
 class MyEvents extends Component {
   constructor(props) {

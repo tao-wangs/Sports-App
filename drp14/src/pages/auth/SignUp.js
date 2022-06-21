@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
 import { Row } from "react-bootstrap";
-
+import "./SignUp.css"
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -55,16 +55,18 @@ class SignUp extends Component {
     return this.state.submit ? (
       <Navigate to="/" />
     ) : (
-      <div className="form-list">
-        <form onSubmit={this.handleSubmit}>
-          <Row>
-            <input
-              className="form-control mr-sm-2 m-2"
-              placeholder="Email"
-              name="email"
-              type="text"
-              value={this.state.email}
-              onChange={this.handleChange}
+      <div className="signup">
+        <div className="signup__box">
+          <h1>Register</h1>
+          <form onSubmit={this.handleSubmit} className="form-inline my-2 my-lg-0">
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Email"
+                name="email"
+                type="text"
+                value={this.state.email}
+                onChange={this.handleChange}
             />
           </Row>
           <Row>
@@ -87,8 +89,13 @@ class SignUp extends Component {
               onChange={this.handleChange}
             />
           </Row>
-          <input type="submit" value="Submit" />
+          <input 
+            variant="outlined" 
+            className="submit-button" 
+            type="submit" 
+            value="Sign Up" />
         </form>
+        </div>
       </div>
     );
   }

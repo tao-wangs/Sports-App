@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
 import { Row } from "react-bootstrap";
+import "./Login.css"
 
 class LogIn extends Component {
   constructor(props) {
@@ -49,36 +50,45 @@ class LogIn extends Component {
     return this.state.submit ? (
       <Navigate to="/" />
     ) : (
-      <div>
-        <form onSubmit={this.handleSubmit} className="form-inline my-2 my-lg-0">
-          <Row>
-            <input
-              className="form-control mr-sm-2 m-2"
-              placeholder="Email"
-              name="email"
-              type="text"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </Row>
-          <Row>
-            <input
-              className="form-control mr-sm-2 m-2"
-              placeholder="Password"
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </Row>
-          <div className="w-100 text-center mt-2">
-            Need an account?  
-            <Link to="/signup">
-              Sign Up
-            </Link>
-          </div>
-          <input className="m-2" type="submit" value="Submit" />
-        </form>
+      <div className="login">
+        <div className="login__box">
+          <h1>Log In</h1>
+          <form onSubmit={this.handleSubmit} className="form-inline my-2 my-lg-0">
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Email"
+                name="email"
+                type="text"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <div className='help'>
+            <p>Need an account?</p>  
+            <p>
+              <Link to="/signup">
+                Sign Up
+              </Link>
+            </p>  
+            </div>
+            <input 
+              variant="outlined" 
+              className="submit-button" 
+              type="submit" 
+              value="Log In" />
+          </form>
+        </div>
       </div>
     );
   }

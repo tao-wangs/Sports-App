@@ -1,33 +1,52 @@
 import React, { Component } from 'react';
-import {Navbar, Container, Nav, Button} from "react-bootstrap"
-import { Link } from 'react-router-dom';
-
+import { Link, NavLink } from "react-router-dom"
+import "./Header.css"
+import SearchIcon from "@mui/icons-material/Search"
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Avatar } from "@mui/material"
 class Header extends Component {
    
   render() { 
     return (
-      <Navbar bg="light" expand="lg" variant="light">
-        <Container>
-          <Link to="/">
-            <Navbar.Brand>Sports Events Website</Navbar.Brand>
-          </Link>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="m-auto">
-              <Link to="/"><Button className="secondary btn-lg" variant="light">Home</Button></Link>
-              <Link to="/myevents"><Button className="secondary btn-lg" variant="light">My Events</Button></Link>
-              <Link to="/login"><Button className="secondary btn-lg" variant="light">Login</Button></Link>
-              <Link to="/signup"><Button className="secondary btn-lg" variant="light">Register</Button></Link>
-              {/* <NavDropdown title="User" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.2">Logout</NavDropdown.Item>
-              </NavDropdown> */}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    );
+      <div className='header'>
+        <Link to="/">
+          <img 
+          className='header__icon' 
+          src='/logo.png'
+          alt=''/>
+        </Link>
+      
+        <div className='header__center'>
+          <input type='text'/>
+          <SearchIcon/>
+        </div>
+
+        <div className='header__right'>
+          <NavLink 
+          className='host-link' 
+          to='/host'
+          style={{textDecoration: 'inherit', color: 'inherit'}}>
+            Host an Event
+          </NavLink>
+
+          <NavLink
+            className='myevents-link'
+            to='/myevents'
+            style={{textDecoration: 'inherit', color: 'inherit'}}>
+            <SportsSoccerIcon />
+          </NavLink>
+          <ExpandMoreIcon/>
+
+          <NavLink
+            className='login-link'
+            to='/login'
+            style={{textDecoration: 'inherit', color: 'inherit'}}>
+            <Avatar />
+          </NavLink>
+        </div>
+      </div>
+      );
   }
 }
  
