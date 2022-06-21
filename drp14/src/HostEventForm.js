@@ -14,7 +14,8 @@ class HostEventForm extends Component {
       description: "",
       submit: false,
       selectedFile: "",
-      image: ""
+      image: "",
+      images: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,7 +44,11 @@ class HostEventForm extends Component {
     console.log(params.file);
     const response = await fetch("/upload_image", params);
     const body = await response.json();
-    console.log(body.message);
+    if (response.status !== 200) {
+      console.log(body.message);
+      return;
+    }
+    this.setState({ images: [body._id, ...this.state.images] });
   }
 
   async handleSubmit(event) {
@@ -139,7 +144,7 @@ class HostEventForm extends Component {
                 placeholder="Choose Image"
                 name="image"
                 type="file"
-                value={this.state.images}
+                value={this.state.imageText}
                 onChange={this.handleImageSelect}
               />
               <Button onClick={this.handleImageUpload}>

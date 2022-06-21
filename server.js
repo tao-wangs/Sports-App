@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
-const fs = require("fs");
+const fs = require("fs")
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -83,12 +83,18 @@ app.post("/upload_image", upload.single('image'), (req, res, next) => {
   image
     .save()
     .then((user) => {
-      res.json({ message: "Event added successfully" });
+      res.json({ _id: image._id });
     })
     .catch((err) => {
       console.log(err);
       res.status(400).json({ message: "Failed to save event" });
     });
+});
+
+app.post("/get_images", (req, res) => {
+  findImages(req.body.event).then((x) => {
+    res.send({ images: x });
+  });
 });
 
 app.post("/filter_events", (req, res) => {
@@ -199,3 +205,7 @@ findHosting = async (userid) => {
 hostEvent = async (event, user) => {
   await User.updateOne({ _id: user }, { $push: { hosting: event } });
 };
+
+findImages = async (event) => {
+  return await Image.find({ _id: {$in: event.images} });
+}
