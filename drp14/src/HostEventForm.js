@@ -37,7 +37,7 @@ class HostEventForm extends Component {
 
     if (
       this.state.selectedFile !== "" &&
-      (this.state.selectedFile.size > 4, 194, 304)
+      this.state.selectedFile.size > 4194304
     ) {
       alert("Image is too big! Maximum size is 4MB");
       return;
