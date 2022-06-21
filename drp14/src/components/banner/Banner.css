@@ -11,7 +11,7 @@
   background-color: white;
   color:black;
   padding-top: 10vh;
-  padding-left: 300px;
+  padding-left: 25vh;
   padding-right: 50px;
   padding-bottom: 40px;
   width: 43vw;
@@ -21,7 +21,7 @@
   font-family: 'Comfortaa', cursive;
   margin-left: 50px;
   font-weight: 700;
-  font-size: 100px;
+  font-size: 50px;
   background: -webkit-linear-gradient(rgb(29, 207, 189), rgb(21, 98, 140));
   /* background: -webkit-linear-gradient(rgb(21, 98, 140), rgb(29, 207, 189));  */
   -webkit-background-clip: text;
@@ -40,8 +40,8 @@
   background-color: rgb(33, 150, 168);
   color: white;
   text-transform: inherit;
-  margin-top: 70px;
-  margin-left: 240px;
+  margin-top: 20px;
+  margin-left: 7vh;
   font-weight: 600;
   width: 250px;
   height: 75px;
