@@ -13,8 +13,8 @@
 }
 
 .sportingEvent > img {
-  height: 200px;
-  width: 350px;
+  width: 400px;
+  height: 275px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -44,7 +44,7 @@
 .sportingEvent__infoTop > p {
   margin-top: 10px;
   font-size: 13px;
-  color: gray;
+  color: black;
 }
 
 .sportingEvent__infoBottom {

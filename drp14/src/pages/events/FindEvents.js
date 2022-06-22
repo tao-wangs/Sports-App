@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Events from "./Events";
-import "./FindEvents.css"
+import "./FindEvents.css";
 
 class FindEvents extends Component {
   constructor(props) {
@@ -43,22 +43,18 @@ class FindEvents extends Component {
       <div className="findEventsPage">
         <div className="findEventsPage__info">
           <h1>Events</h1>
-          <p>{this.state.events.length} events found</p>
-
           <form onSubmit={this.handleSubmit} className="searchBar">
-          <input
-            name="query"
-            value={this.state.query}
-            onChange={this.handleChange}
-            className="form-control"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
+            <input
+              name="query"
+              value={this.state.query}
+              onChange={this.handleChange}
+              className="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
           </form>
         </div>
-        
-        
         {this.state.search ? (
           <Events events={this.state.events} filter={this.state.toggle} />
         ) : (

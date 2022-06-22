@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
 import LogIn from "../auth/LogIn";
-
+import "./Events.css";
 class Events extends Component {
   constructor(props) {
     super(props);
@@ -89,6 +89,7 @@ class Events extends Component {
 
     return this.state.body ? (
       <div className="event-grid">
+        <p>{this.state.body.length} events found</p>
         {this.state.body.map((x) => (
           <SportingEvent
             filter={this.props.filter}

@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Buffer } from "buffer";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./SportingEvent.css"
-import PeopleIcon from '@mui/icons-material/People';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import "./SportingEvent.css";
+import PeopleIcon from "@mui/icons-material/People";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 class SportingEvent extends Component {
   constructor(props) {
@@ -41,42 +41,53 @@ class SportingEvent extends Component {
   render() {
     return (
       <div className="sportingEvent">
-        {this.props.data.pictures.map((x) => {
-           const img = Buffer.from(x.data.data);
-           return (
-             <img
-               src={`data:${x.contentType};base64,${img.toString("base64")}`}
-               alt=""/>
-           );
-         })}
-         <FavoriteIcon className="sportingEvent__heart"/>
-
+        {this.props.data.pictures.length !== 0 ? (
+          this.props.data.pictures.map((x) => {
+            const img = Buffer.from(x.data.data);
+            return (
+              <img
+                src={`data:${x.contentType};base64,${img.toString("base64")}`}
+                alt=""
+              />
+            );
+          })
+        ) : (
+          <img src="/placeholder.jpg" alt="" />
+        )}
+        <FavoriteIcon className="sportingEvent__heart" />
         <div className="sportingEvent__info">
           <div className="sportingEvent__infoTop">
             <h3>{this.props.data.name}</h3>
             <p>{this.props.data.location}</p>
-            <p>{
-              new Date(this.props.data.date).toLocaleString() + " to " + 
-              new Date(this.props.data.enddate).toLocaleString() }
+            <p>
+              {new Date(this.props.data.date).toLocaleString() +
+                " to " +
+                new Date(this.props.data.enddate).toLocaleString()}
             </p>
-            <p><Linkify>{this.props.data.description}</Linkify></p>
+            <p>
+              <Linkify>{this.props.data.description}</Linkify>
+            </p>
           </div>
-          <div className="sportingEvent__infoBottom"> 
+          <div className="sportingEvent__infoBottom">
             <div className="sportingEvent__attending">
-              <PeopleIcon/>
-              <p><strong>3 attending</strong></p>
+              <PeopleIcon />
+              <p>
+                <strong>{this.props.data.attendees.length} attending</strong>
+              </p>
             </div>
             <div className="sportingEvent__rsvp">
               {this.props.rsvp === "hidden" ? (
-              <p></p>
-                ) : (
-              <Button
-                className="btn btn-secondary"
-                type="button"
-                onClick={this.handleRSVP}>
-                RSVP
-              </Button>)}
-            </div>     
+                <p></p>
+              ) : (
+                <Button
+                  className="btn btn-secondary"
+                  type="button"
+                  onClick={this.handleRSVP}
+                >
+                  RSVP
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

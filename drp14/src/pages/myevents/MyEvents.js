@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LogIn from "../auth/LogIn";
 import Events from "../events/Events";
+import "./MyEvents.css";
 
 class MyEvents extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class MyEvents extends Component {
 
   render() {
     return (
-      <div>
+      <div className="myevents">
         <h1>My Events</h1>
         <Link to="/myevents/attending">
           <Button
