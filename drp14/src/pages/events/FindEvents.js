@@ -1,72 +1,60 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Events from "./Events";
+import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 import "./FindEvents.css"
 
-class FindEvents extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: "",
-      search: false,
-      events: [],
-      toggle: false,
-    };
+function FindEvents(props) {
+  const location = useLocation();
+  const { register, handleSubmit } = useForm();
+  const [search, setSearch] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  async handleSubmit(event) {
-    event.preventDefault();
-
+  async function onFormSubmit(data) {
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: this.state.query }),
+      body: JSON.stringify({ query: data.query }),
     };
 
     const response = await fetch("/filter_events", params);
     const body = await response.json();
-    this.setState({
-      events: body.events,
-      search: true,
-      toggle: !this.state.toggle,
-    });
+    console.log(body);
+    setEvents(body.events);
+    setSearch(true);
+    setToggle(!toggle);
   }
 
-  render() {
-    return (
-      <div className="findEventsPage">
-        <div className="findEventsPage__info">
-          <h1>Events</h1>
-          <p>{this.state.events.length} events found</p>
+  useEffect(() => {
+    if (location.state) {
+      onFormSubmit(location.state);
+    }
+  }, [location.state]);
 
-          <form onSubmit={this.handleSubmit} className="searchBar">
+  return (
+    <div className="findEventsPage">
+      <div className="findEventsPage__info">
+        <h1>Events</h1>
+        <p>{events.length} events found</p>
+        <form onSubmit={handleSubmit(onFormSubmit)} className="form-inline my-2 my-lg-0">
           <input
             name="query"
-            value={this.state.query}
-            onChange={this.handleChange}
-            className="form-control"
+            {...register("query")}
+            className="form-control mr-sm-2 m-2"
             type="search"
             placeholder="Search"
             aria-label="Search"
           />
-          </form>
-        </div>
-        
-        
-        {this.state.search ? (
-          <Events events={this.state.events} filter={this.state.toggle} />
-        ) : (
-          <Events />
-        )}
+        </form>
       </div>
-    );
-  }
+      {search ? (
+        <Events events={events} filter={toggle} />
+      ) : (
+        <Events />
+      )}
+    </div>
+  );
 }
 
 export default FindEvents;

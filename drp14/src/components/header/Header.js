@@ -6,8 +6,20 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { Avatar } from "@mui/material"
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: ""
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
    
-  render() { 
+  render() {
     return (
       <div className='header'>
         <Link to="/">
@@ -18,8 +30,14 @@ class Header extends Component {
         </Link>
       
         <div className='header__center'>
-          <input type='text'/>
-          <SearchIcon/>
+          <input name="query" type='text' onChange={this.handleChange}/>
+          <NavLink
+            className='search-link'
+            to='/events'
+            state={{query: this.state.query}}
+          >
+            <SearchIcon/>
+          </NavLink>
         </div>
 
         <div className='header__right'>
