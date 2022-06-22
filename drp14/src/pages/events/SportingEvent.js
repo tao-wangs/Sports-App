@@ -1,6 +1,7 @@
 import Linkify from "react-linkify";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import { Buffer } from "buffer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./SportingEvent.css";
 import PeopleIcon from "@mui/icons-material/People";
@@ -40,7 +41,7 @@ class SportingEvent extends Component {
   render() {
     return (
       <div className="sportingEvent">
-        {/* {this.props.data.pictures.length !== 0 ? (
+        {this.props.data.pictures.length !== 0 ? (
           this.props.data.pictures.map((x) => {
             const img = Buffer.from(x.data.data);
             return (
@@ -52,7 +53,7 @@ class SportingEvent extends Component {
           })
         ) : (
           <img src="/placeholder.jpg" alt="" />
-        )} */}
+        )}
         <FavoriteIcon className="sportingEvent__heart" />
         <div className="sportingEvent__info">
           <div className="sportingEvent__infoTop">
