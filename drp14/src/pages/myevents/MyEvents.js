@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import LogIn from "../auth/LogIn";
 import Events from "../events/Events";
 
 class MyEvents extends Component {
@@ -52,8 +53,12 @@ class MyEvents extends Component {
           <div>
             <Events filter={this.state.filter} setFilter={this.setFilter} />
           </div>
+        ) : !document.cookie ? (
+          <div>
+            <LogIn />
+          </div>
         ) : (
-          <p>{"No Events " + this.state.filter}</p>
+          <p />
         )}
       </div>
     );

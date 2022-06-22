@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
+import LogIn from "../auth/LogIn";
 
 class Events extends Component {
   constructor(props) {
@@ -68,7 +69,6 @@ class Events extends Component {
     const body = await response.json();
 
     if (response.status !== 200) {
-      alert(body.message);
       return;
     }
 
@@ -102,8 +102,13 @@ class Events extends Component {
           />
         ))}
       </div>
-    ) : (
+    ) : document.cookie || !this.props.filter ? (
       <p>Fetching events</p>
+    ) : (
+      <div>
+        <p>Please log in to do that</p>
+        <LogIn />
+      </div>
     );
   }
 }
