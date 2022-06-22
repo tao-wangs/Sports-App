@@ -52,8 +52,10 @@ class MyEvents extends Component {
           <div>
             <Events filter={this.state.filter} setFilter={this.setFilter} />
           </div>
+        ) : !document.cookie ? (
+          <p>Please log in to do that</p>
         ) : (
-          <p>{"No Events " + this.state.filter}</p>
+          <p />
         )}
       </div>
     );

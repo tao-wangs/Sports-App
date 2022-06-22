@@ -68,7 +68,6 @@ class Events extends Component {
     const body = await response.json();
 
     if (response.status !== 200) {
-      alert(body.message);
       return;
     }
 
@@ -102,8 +101,10 @@ class Events extends Component {
           />
         ))}
       </div>
-    ) : (
+    ) : document.cookie || !this.props.filter ? (
       <p>Fetching events</p>
+    ) : (
+      <p>Please log in to do that</p>
     );
   }
 }
