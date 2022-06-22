@@ -20,7 +20,6 @@ function FindEvents(props) {
 
     const response = await fetch("/filter_events", params);
     const body = await response.json();
-    console.log(body);
     setEvents(body.events);
     setSearch(true);
     setToggle(!toggle);
@@ -50,7 +49,11 @@ function FindEvents(props) {
           />
         </form>
       </div>
-      {search ? <Events events={events} filter={toggle} /> : <Events />}
+      {search || location.state ? (
+        <Events events={events} filter={toggle} />
+      ) : (
+        <Events />
+      )}
     </div>
   );
 }

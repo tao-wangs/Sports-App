@@ -43,7 +43,6 @@ class Events extends Component {
 
   setEvents = async (events) => {
     const mappedEvents = await this.mapImages(events);
-    console.log(mappedEvents);
     this.setState({
       body: mappedEvents,
       filter: this.props.filter,
@@ -107,7 +106,6 @@ class Events extends Component {
       <p>Fetching events</p>
     ) : (
       <div>
-        <p>Please log in to do that</p>
         <LogIn />
       </div>
     );

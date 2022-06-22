@@ -61,6 +61,10 @@ class HostEventForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    if (this.state.enddate < this.state.date) {
+      alert("Please make sure the event does not end before it starts");
+      return;
+    }
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
