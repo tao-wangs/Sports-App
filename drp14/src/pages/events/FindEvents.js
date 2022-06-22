@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Events from "./Events";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
@@ -11,11 +11,25 @@ function FindEvents(props) {
   const [events, setEvents] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  async function onFormSubmit(data) {
+  // async function onFormSubmit(data) {
+  //   const params = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ query: data.query }),
+  //   };
+
+  //   const response = await fetch("/filter_events", params);
+  //   const body = await response.json();
+  //   setEvents(body.events);
+  //   setSearch(true);
+  //   setToggle(!toggle);
+  // }
+
+  const onFormSubmit = useCallback (async () => {
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: data.query }),
+      body: JSON.stringify({ query: location.state.query }),
     };
 
     const response = await fetch("/filter_events", params);
@@ -23,13 +37,13 @@ function FindEvents(props) {
     setEvents(body.events);
     setSearch(true);
     setToggle(!toggle);
-  }
+  }, [location.state, toggle]);
 
   useEffect(() => {
     if (location.state) {
-      onFormSubmit(location.state);
+      onFormSubmit();
     }
-  }, [location.state]);
+  }, [onFormSubmit, location.state]);
 
   return (
     <div className="findEventsPage">

@@ -1,7 +1,6 @@
 import Linkify from "react-linkify";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
-import { Buffer } from "buffer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./SportingEvent.css";
 import PeopleIcon from "@mui/icons-material/People";
