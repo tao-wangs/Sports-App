@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
+import LogIn from "../auth/LogIn";
 
 class Events extends Component {
   constructor(props) {
@@ -104,7 +105,10 @@ class Events extends Component {
     ) : document.cookie || !this.props.filter ? (
       <p>Fetching events</p>
     ) : (
-      <p>Please log in to do that</p>
+      <div>
+        <p>Please log in to do that</p>
+        <LogIn />
+      </div>
     );
   }
 }
