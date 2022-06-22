@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Events from "./Events";
+import "./FindEvents.css"
 
 class FindEvents extends Component {
   constructor(props) {
@@ -39,18 +40,25 @@ class FindEvents extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} className="form-inline my-2 my-lg-0">
+      <div className="findEventsPage">
+        <div className="findEventsPage__info">
+          <h1>Events</h1>
+          <p>{this.state.events.length} events found</p>
+
+          <form onSubmit={this.handleSubmit} className="searchBar">
           <input
             name="query"
             value={this.state.query}
             onChange={this.handleChange}
-            className="form-control mr-sm-2 m-2"
+            className="form-control"
             type="search"
             placeholder="Search"
             aria-label="Search"
           />
-        </form>
+          </form>
+        </div>
+        
+        
         {this.state.search ? (
           <Events events={this.state.events} filter={this.state.toggle} />
         ) : (

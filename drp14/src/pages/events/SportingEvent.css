@@ -1,0 +1,64 @@
+.sportingEvent {
+  display: flex;
+  position: relative;
+  margin: 20px;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.sportingEvent:hover {
+  opacity: 0.8;
+}
+
+.sportingEvent > img {
+  height: 200px;
+  width: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sportingEvent__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20px;
+}
+
+.sportingEvent__heart {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+}
+
+.sportingEvent__infoTop {
+  width: 40vw;
+}
+
+.sportingEvent__infoTop > h3 {
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+.sportingEvent__infoTop > p {
+  margin-top: 10px;
+  font-size: 13px;
+  color: gray;
+}
+
+.sportingEvent__infoBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sportingEvent__attending {
+  display: flex;
+  align-items: center;
+}
+
+.sportingEvent__rsvp {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+}
