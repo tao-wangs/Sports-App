@@ -20,7 +20,18 @@ function FindEvents(props) {
 
   const onFormSubmit = useCallback(
     async (data) => {
-      const queries = data.query.split(" ").filter((x) => x !== "");
+      var queries = { include: [], exclude: [] };
+      for (let sport of data.query
+        .split(",")
+        .filter((x) => x !== "")
+        .map((x) => x.trim())) {
+        if (sport[0] === "-") {
+          queries.exclude.push(sport.slice(1));
+        } else {
+          queries.include.push(sport);
+        }
+      }
+
       const params = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
