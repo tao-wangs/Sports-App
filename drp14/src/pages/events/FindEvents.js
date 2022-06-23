@@ -83,7 +83,7 @@ function FindEvents(props) {
         </Button>
         <Button variant="outlined">
           <SportsTennisIcon/>
-          Bat
+          Racket
         </Button>
         <Button variant="outlined">
           <SportsMartialArtsIcon/>
@@ -91,7 +91,7 @@ function FindEvents(props) {
         </Button>
         <Button variant="outlined">
           <SportsCricketIcon/>
-          Racket
+          Bat
         </Button>
         <Button variant="outlined">
           <PoolIcon/>

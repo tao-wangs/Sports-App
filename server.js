@@ -24,6 +24,15 @@ db.once("open", () => console.error("Connected to Mongoose Database"));
 
 //database stuff ends here
 
+const categories = [
+  {name: "athletic", sports: ["running", "high jump", "pole vault"]},
+  {name: "ball", sports: ["football", "rugby"]},
+  {name: "racket", sports: ["badminton", "tennis"]},
+  {name: "martial arts", sports: ["karate", "judo"]},
+  {name: "bat", sports: ["cricket", "baseball"]},
+  {name: "water sports", sports: ["swimming"]},
+];
+
 var sessions = {};
 
 const app = express();
