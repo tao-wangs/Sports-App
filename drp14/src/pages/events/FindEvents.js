@@ -25,23 +25,26 @@ function FindEvents(props) {
   //   setToggle(!toggle);
   // }
 
-  const onFormSubmit = useCallback (async () => {
-    const params = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: location.state.query }),
-    };
+  const onFormSubmit = useCallback(
+    async (data) => {
+      const params = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: data.query }),
+      };
 
-    const response = await fetch("/filter_events", params);
-    const body = await response.json();
-    setEvents(body.events);
-    setSearch(true);
-    setToggle(!toggle);
-  }, [location.state, toggle]);
+      const response = await fetch("/filter_events", params);
+      const body = await response.json();
+      setEvents(body.events);
+      setSearch(true);
+      setToggle(!toggle);
+    },
+    [toggle]
+  );
 
   useEffect(() => {
     if (location.state) {
-      onFormSubmit();
+      onFormSubmit(location.state);
     }
   }, [onFormSubmit, location.state]);
 
