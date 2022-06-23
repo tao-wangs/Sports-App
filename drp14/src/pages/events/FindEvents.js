@@ -3,6 +3,13 @@ import Events from "./Events";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import "./FindEvents.css";
+import { Button } from "@mui/material"
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun"
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer"
+import SportsTennisIcon from "@mui/icons-material/SportsTennis"
+import SportsMartialArtsIcon from "@mui/icons-material/SportsMartialArts"
+import SportsCricketIcon from "@mui/icons-material/SportsCricket"
+import PoolIcon from "@mui/icons-material/Pool"
 
 function FindEvents(props) {
   const location = useLocation();
@@ -66,6 +73,31 @@ function FindEvents(props) {
             aria-label="Search"
           />
         </form>
+        <Button variant="outlined">
+          <DirectionsRunIcon/>
+          Athletic
+        </Button>
+        <Button variant="outlined">
+          <SportsSoccerIcon/>
+          Ball
+        </Button>
+        <Button variant="outlined">
+          <SportsTennisIcon/>
+          Bat
+        </Button>
+        <Button variant="outlined">
+          <SportsMartialArtsIcon/>
+          Martial Arts
+        </Button>
+        <Button variant="outlined">
+          <SportsCricketIcon/>
+          Racket
+        </Button>
+        <Button variant="outlined">
+          <PoolIcon/>
+          Water Sports
+        </Button>
+        {/* can always add more here */}
       </div>
       {search || location.state ? (
         <Events events={events} filter={toggle} />
