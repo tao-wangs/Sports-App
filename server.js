@@ -14,6 +14,7 @@ const User = require("./User");
 const Image = require("./Image");
 
 const mongoose = require("mongoose");
+
 mongoose.connect(
   "mongodb+srv://user:a16iZmbulAApdLuP@cluster0.mbyye.mongodb.net/?retryWrites=true&w=majority",
   { useNewUrlParser: true }
@@ -23,6 +24,15 @@ db.on("error", (error) => console.error(error));
 db.once("open", () => console.error("Connected to Mongoose Database"));
 
 //database stuff ends here
+
+const categories = [
+  {name: "athletic", sports: ["running", "high jump", "pole vault"]},
+  {name: "ball", sports: ["football", "rugby"]},
+  {name: "racket", sports: ["badminton", "tennis"]},
+  {name: "martial arts", sports: ["karate", "judo"]},
+  {name: "bat", sports: ["cricket", "baseball"]},
+  {name: "water sports", sports: ["swimming"]},
+];
 
 var sessions = {};
 
@@ -97,7 +107,7 @@ app.post("/get_images", (req, res) => {
 });
 
 app.post("/filter_events", (req, res) => {
-  if (!req.body.query.length) {
+  if (!req.body.query.include.length && !req.body.query.exclude.length) {
     findEvents().then((x) => {
       res.send({ events: x });
     });
@@ -179,7 +189,13 @@ findEvents = async () => {
 };
 
 findFilteredEvents = async (sport) => {
-  return await Event.find({ sport: { $in: sport } });
+  if (sport.include.length === 0) {
+    return await Event.find({ sport: { $nin: sport.exclude } });
+  }
+
+  return await Event.find({
+    sport: { $in: sport.include, $nin: sport.exclude },
+  });
 };
 
 findUser = async (foo) => {
