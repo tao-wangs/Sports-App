@@ -11,20 +11,6 @@ function FindEvents(props) {
   const [events, setEvents] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  // async function onFormSubmit(data) {
-  //   const params = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ query: data.query }),
-  //   };
-
-  //   const response = await fetch("/filter_events", params);
-  //   const body = await response.json();
-  //   setEvents(body.events);
-  //   setSearch(true);
-  //   setToggle(!toggle);
-  // }
-
   const onFormSubmit = useCallback(
     async (data) => {
       const queries = data.query.split(" ").filter((x) => x !== "");
@@ -44,10 +30,24 @@ function FindEvents(props) {
   );
 
   useEffect(() => {
+    async function onFormSubmit(data) {
+      const queries = data.query.split(" ").filter((x) => x !== "");
+      const params = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: queries }),
+      };
+
+      const response = await fetch("/filter_events", params);
+      const body = await response.json();
+      setEvents(body.events);
+      setSearch(true);
+      setToggle(data.query);
+    }
     if (location.state) {
       onFormSubmit(location.state);
     }
-  }, [onFormSubmit, location.state]);
+  }, [location.state]);
 
   return (
     <div className="findEventsPage">
