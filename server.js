@@ -25,6 +25,15 @@ db.once("open", () => console.error("Connected to Mongoose Database"));
 
 //database stuff ends here
 
+const categories = {
+  athletic: ["running", "high jump", "pole vault"],
+  ball: ["football", "rugby"],
+  racket: ["badminton", "tennis"],
+  martial_arts: ["karate", "judo"],
+  bat: ["cricket", "baseball"],
+  water: ["swimming"],
+};
+
 var sessions = {};
 
 const app = express();
@@ -98,7 +107,11 @@ app.post("/get_images", (req, res) => {
 });
 
 app.post("/filter_events", (req, res) => {
-  if (!req.body.query.include.length && !req.body.query.exclude.length) {
+  if (
+    !req.body.query.include.length &&
+    !req.body.query.exclude.length &&
+    !req.body.query.categories.length
+  ) {
     findEvents().then((x) => {
       res.send({ events: x });
     });
@@ -180,6 +193,13 @@ findEvents = async () => {
 };
 
 findFilteredEvents = async (sport) => {
+  console.log(sport.categories);
+  sport.include = [
+    ...sport.include,
+    ...sport.categories.map((x) => categories[x]).flat(),
+  ];
+  console.log(sport.include);
+
   if (sport.include.length === 0) {
     return await Event.find({ sport: { $nin: sport.exclude } });
   }

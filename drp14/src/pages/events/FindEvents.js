@@ -15,38 +15,58 @@ function FindEvents(props) {
   const location = useLocation();
   const { register, handleSubmit } = useForm();
   const [search, setSearch] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [toggle, setToggle] = useState(false);
+  const [query, setQuery] = useState({
+    include: [],
+    exclude: [],
+  });
   const [categories, setCategories] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [toggle, setToggle] = useState({});
 
-  const onFormSubmit = useCallback(
-    async (data) => {
-      var queries = { include: [], exclude: [], categories: categories };
-      for (let sport of data.query
-        .split(",")
-        .filter((x) => x !== "")
-        .map((x) => x.trim())) {
-        if (sport[0] === "-") {
-          queries.exclude.push(sport.slice(1));
-        } else {
-          queries.include.push(sport);
-        }
-      }
+  useEffect(() => {
+    async function getEvents() {
+      var finalQuery = {
+        include: query.include,
+        exclude: query.exclude,
+        categories: categories,
+      };
 
       const params = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: queries }),
+        body: JSON.stringify({
+          query: finalQuery,
+        }),
       };
 
       const response = await fetch("/filter_events", params);
       const body = await response.json();
       setEvents(body.events);
       setSearch(true);
-      setToggle(!toggle);
-    },
-    [toggle, categories]
-  );
+      setToggle(finalQuery);
+    }
+    getEvents();
+  }, [query, categories]);
+
+  const onFormSubmit = useCallback(async (data) => {
+    var include = [];
+    var exclude = [];
+    for (let sport of data.query
+      .split(",")
+      .filter((x) => x !== "")
+      .map((x) => x.trim())) {
+      if (sport[0] === "-") {
+        exclude.push(sport.slice(1));
+      } else {
+        include.push(sport);
+      }
+    }
+
+    setQuery({
+      include: include,
+      exclude: exclude,
+    });
+  }, []);
 
   const toggleCategory = (category) => {
     if (!categories.includes(category)) {
@@ -57,35 +77,10 @@ function FindEvents(props) {
   };
 
   useEffect(() => {
-    async function onFormSubmit(data) {
-      var queries = { include: [], exclude: [] };
-      for (let sport of data.query
-        .split(",")
-        .filter((x) => x !== "")
-        .map((x) => x.trim())) {
-        if (sport[0] === "-") {
-          queries.exclude.push(sport.slice(1));
-        } else {
-          queries.include.push(sport);
-        }
-      }
-
-      const params = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: queries }),
-      };
-
-      const response = await fetch("/filter_events", params);
-      const body = await response.json();
-      setEvents(body.events);
-      setSearch(true);
-      setToggle(data.query);
-    }
     if (location.state) {
       onFormSubmit(location.state);
     }
-  }, [location.state]);
+  }, [location.state, onFormSubmit]);
 
   return (
     <div className="findEventsPage">
@@ -118,7 +113,7 @@ function FindEvents(props) {
         </Button>
         <Button
           variant="outlined"
-          onClick={() => toggleCategory("martial-arts")}
+          onClick={() => toggleCategory("martial_arts")}
         >
           <SportsMartialArtsIcon />
           Martial Arts
