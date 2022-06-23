@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
 import "./Events.css";
-import { Navigate } from "react-router-dom"
+//import { Navigate } from "react-router-dom";
 class Events extends Component {
   constructor(props) {
     super(props);
@@ -105,10 +105,7 @@ class Events extends Component {
     ) : document.cookie || !this.props.filter ? (
       <p>Fetching events</p>
     ) : (
-      <Navigate to="/login" />
-      // <div>
-      //   <LogIn />
-      // </div>
+      <p />
     );
   }
 }
