@@ -27,10 +27,11 @@ function FindEvents(props) {
 
   const onFormSubmit = useCallback(
     async (data) => {
+      const queries = data.query.split(" ").filter((x) => x !== "");
       const params = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: data.query }),
+        body: JSON.stringify({ query: queries }),
       };
 
       const response = await fetch("/filter_events", params);

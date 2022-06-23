@@ -97,7 +97,7 @@ app.post("/get_images", (req, res) => {
 });
 
 app.post("/filter_events", (req, res) => {
-  if (req.body.query === "") {
+  if (!req.body.query.length) {
     findEvents().then((x) => {
       res.send({ events: x });
     });
@@ -179,7 +179,7 @@ findEvents = async () => {
 };
 
 findFilteredEvents = async (sport) => {
-  return await Event.find({ sport: sport });
+  return await Event.find({ sport: { $in: sport } });
 };
 
 findUser = async (foo) => {
