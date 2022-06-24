@@ -31,7 +31,7 @@ const categories = {
   racket: ["badminton", "tennis"],
   martial_arts: ["karate", "judo"],
   bat: ["cricket", "baseball"],
-  water: ["swimming"],
+  water: ["swimming", "rowing"],
 };
 
 var sessions = {};
