@@ -85,6 +85,10 @@ class HostEventForm extends Component {
   }
 
   render() {
+    if (!document.cookie) {
+      return <Navigate to="/login" />;
+    }
+
     return this.state.submit ? (
       <Navigate to="/" />
     ) : (

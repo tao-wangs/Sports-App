@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { Avatar } from "@mui/material";
 class Header extends Component {
   constructor(props) {
@@ -43,17 +43,16 @@ class Header extends Component {
             to="/host"
             style={{ textDecoration: "inherit", color: "inherit" }}
           >
-            Host an Event
+            <AddCircleOutlineIcon /> Host an Event
           </NavLink>
 
           <NavLink
             className="myevents-link"
-            to="/myevents/attending"
+            to="/myevents"
             style={{ textDecoration: "inherit", color: "inherit" }}
           >
-            <SportsSoccerIcon />
+            <CalendarTodayIcon className="sports-icon" /> My Events
           </NavLink>
-          <ExpandMoreIcon />
 
           <NavLink
             className="login-link"

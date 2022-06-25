@@ -41,6 +41,10 @@
   margin-right: 80px; 
 }
 
+.sports-icon {
+  margin-right: 3 px;
+}
+
 .header__right > p {
   margin-top: 15px;
   font: bold;

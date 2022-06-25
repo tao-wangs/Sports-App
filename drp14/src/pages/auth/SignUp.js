@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
 import { Row } from "react-bootstrap";
-import "./SignUp.css"
+import "./SignUp.css";
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +47,7 @@ class SignUp extends Component {
       return;
     }
 
-    fetch("/post_signup", params);
+    await fetch("/post_signup", params);
     this.setState({ submit: true });
   }
 
@@ -58,7 +58,10 @@ class SignUp extends Component {
       <div className="signup">
         <div className="signup__box">
           <h1>Register</h1>
-          <form onSubmit={this.handleSubmit} className="form-inline my-2 my-lg-0">
+          <form
+            onSubmit={this.handleSubmit}
+            className="form-inline my-2 my-lg-0"
+          >
             <Row>
               <input
                 className="form-control mr-sm-2 m-2"
@@ -67,34 +70,35 @@ class SignUp extends Component {
                 type="text"
                 value={this.state.email}
                 onChange={this.handleChange}
-            />
-          </Row>
-          <Row>
+              />
+            </Row>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </Row>
+            <Row>
+              <input
+                className="form-control mr-sm-2 m-2"
+                placeholder="Confirm Password"
+                name="confirmedPassword"
+                type="password"
+                value={this.state.confirmedPassword}
+                onChange={this.handleChange}
+              />
+            </Row>
             <input
-              className="form-control mr-sm-2 m-2"
-              placeholder="Password"
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleChange}
+              variant="outlined"
+              className="submit-button"
+              type="submit"
+              value="Sign Up"
             />
-          </Row>
-          <Row>
-            <input
-              className="form-control mr-sm-2 m-2"
-              placeholder="Confirm Password"
-              name="confirmedPassword"
-              type="password"
-              value={this.state.confirmedPassword}
-              onChange={this.handleChange}
-            />
-          </Row>
-          <input 
-            variant="outlined" 
-            className="submit-button" 
-            type="submit" 
-            value="Sign Up" />
-        </form>
+          </form>
         </div>
       </div>
     );

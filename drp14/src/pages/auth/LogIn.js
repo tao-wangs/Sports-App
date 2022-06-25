@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { sha256 } from "crypto-hash";
 import { Row } from "react-bootstrap";
-import "./Login.css"
+import "./Login.css";
+import LogOut from "./LogOut";
 
 class LogIn extends Component {
   constructor(props) {
@@ -47,13 +48,22 @@ class LogIn extends Component {
   }
 
   render() {
-    return this.state.submit ? (
-      <Navigate to="/" />
-    ) : (
+    if (this.state.submit) {
+      return <Navigate to="/" />;
+    }
+
+    if (document.cookie) {
+      return <LogOut />;
+    }
+
+    return (
       <div className="login">
         <div className="login__box">
           <h1>Log In</h1>
-          <form onSubmit={this.handleSubmit} className="form-inline my-2 my-lg-0">
+          <form
+            onSubmit={this.handleSubmit}
+            className="form-inline my-2 my-lg-0"
+          >
             <Row>
               <input
                 className="form-control mr-sm-2 m-2"
@@ -74,19 +84,18 @@ class LogIn extends Component {
                 onChange={this.handleChange}
               />
             </Row>
-            <div className='help'>
-            <p>Need an account?</p>  
-            <p>
-              <Link to="/signup">
-                Sign Up
-              </Link>
-            </p>  
+            <div className="help">
+              <p>Need an account?</p>
+              <p>
+                <Link to="/signup">Sign Up</Link>
+              </p>
             </div>
-            <input 
-              variant="outlined" 
-              className="submit-button" 
-              type="submit" 
-              value="Log In" />
+            <input
+              variant="outlined"
+              className="submit-button"
+              type="submit"
+              value="Log In"
+            />
           </form>
         </div>
       </div>

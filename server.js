@@ -159,7 +159,12 @@ app.post("/post_signup", (req, res) => {
   user
     .save()
     .then((user) => {
-      res.json({ message: "User added successfully" });
+      const id = uuidv4();
+      sessions[id] = user._id;
+      res
+        .clearCookie("sessionID")
+        .cookie("sessionID", id)
+        .json({ message: "Login successful!" });
     })
     .catch((err) => {
       console.log(err);
@@ -188,17 +193,20 @@ app.post("/post_login", (req, res) => {
   });
 });
 
+app.post("/post_logout", (req, res) => {
+  delete sessions[req.sessionID];
+  res.clearCookie("sessionID").json({ message: "successful" });
+});
+
 findEvents = async () => {
   return await Event.find({});
 };
 
 findFilteredEvents = async (sport) => {
-  console.log(sport.categories);
   sport.include = [
     ...sport.include,
     ...sport.categories.map((x) => categories[x]).flat(),
   ];
-  console.log(sport.include);
 
   if (sport.include.length === 0) {
     return await Event.find({ sport: { $nin: sport.exclude } });

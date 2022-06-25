@@ -14,38 +14,39 @@ import PoolIcon from "@mui/icons-material/Pool";
 function FindEvents(props) {
   const location = useLocation();
   const { register, handleSubmit } = useForm();
-  const [search, setSearch] = useState(false);
   const [query, setQuery] = useState({
     include: [],
     exclude: [],
   });
   const [categories, setCategories] = useState([]);
-  const [events, setEvents] = useState([]);
-  const [toggle, setToggle] = useState({});
+  const [toggle, setToggle] = useState({ events: [], query: {} });
 
+  const didMount = React.useRef(false);
   useEffect(() => {
-    async function getEvents() {
-      var finalQuery = {
-        include: query.include,
-        exclude: query.exclude,
-        categories: categories,
-      };
+    if (didMount.current) {
+      async function getEvents() {
+        var finalQuery = {
+          include: query.include,
+          exclude: query.exclude,
+          categories: categories,
+        };
 
-      const params = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: finalQuery,
-        }),
-      };
+        const params = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: finalQuery,
+          }),
+        };
 
-      const response = await fetch("/filter_events", params);
-      const body = await response.json();
-      setEvents(body.events);
-      setSearch(true);
-      setToggle(finalQuery);
+        const response = await fetch("/filter_events", params);
+        const body = await response.json();
+        setToggle({ events: body.events, query: finalQuery });
+      }
+      getEvents();
+    } else {
+      didMount.current = true;
     }
-    getEvents();
   }, [query, categories]);
 
   const onFormSubmit = useCallback(async (data) => {
@@ -82,6 +83,7 @@ function FindEvents(props) {
     }
   }, [location.state, onFormSubmit]);
 
+  console.log("find events render");
   return (
     <div className="findEventsPage">
       <div className="findEventsPage__info">
@@ -128,11 +130,7 @@ function FindEvents(props) {
         </Button>
         {/* can always add more here */}
       </div>
-      {search || location.state ? (
-        <Events events={events} filter={toggle} />
-      ) : (
-        <Events />
-      )}
+      <Events events={toggle.events} filter={toggle.query} />
     </div>
   );
 }
