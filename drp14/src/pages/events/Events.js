@@ -6,9 +6,8 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      body: null,
-      filter: "",
-      mapped: false,
+      body: undefined,
+      refresh: undefined,
     };
   }
 
@@ -16,7 +15,7 @@ class Events extends Component {
     const params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: event }),
+      body: JSON.stringify({ event: event.images }),
     };
 
     const response = await fetch("/get_images", params);
@@ -36,54 +35,22 @@ class Events extends Component {
         return event;
       })
     );
-    this.setState({ mapped: true });
 
     return mappedEvents;
   };
 
   setEvents = async (events) => {
+    console.log("set events");
     const mappedEvents = await this.mapImages(events);
     this.setState({
       body: mappedEvents,
-      filter: this.props.filter,
-    });
-  };
-
-  // fetching the GET route from the Express server which matches the GET route from server.js
-  getEvents = async () => {
-    var path = "";
-    switch (this.props.filter) {
-      case "attending":
-        path = "/get_attending";
-        break;
-      case "hosting":
-        path = "/get_hosting";
-        break;
-      default:
-        path = "/get_events";
-        break;
-    }
-
-    const response = await fetch(path);
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      return;
-    }
-
-    this.setState({
-      body: await this.mapImages(body.events),
-      filter: this.props.filter,
+      refresh: this.props.refresh,
     });
   };
 
   render() {
-    if (!this.state.body || this.props.filter !== this.state.filter) {
-      if (this.props.events) {
-        this.setEvents(this.props.events);
-      } else {
-        this.getEvents(this.props.filter);
-      }
+    if (!this.state.body || this.props.refresh !== this.state.refresh) {
+      this.setEvents(this.props.events);
     }
 
     return this.state.body ? (

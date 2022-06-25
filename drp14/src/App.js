@@ -22,14 +22,7 @@ class App extends Component {
             <Route path="/host" element={<HostEventForm />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            <Route
-              path="/myevents/attending"
-              element={<MyEvents filter="attending" />}
-            />
-            <Route
-              path="/myevents/hosting"
-              element={<MyEvents filter="hosting" />}
-            />
+            <Route path="/myevents" element={<MyEvents />} />
           </Routes>
           <Footer />
         </Router>
