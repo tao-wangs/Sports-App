@@ -41,8 +41,8 @@ class SportingEvent extends Component {
   render() {
     return (
       <div className="sportingEvent">
-        {this.props.data.pictures.length !== 0 ? (
-          this.props.data.pictures.map((x) => {
+        {this.props.images.length !== 0 ? (
+          this.props.images.map((x) => {
             const img = Buffer.from(x.data.data);
             return (
               <img

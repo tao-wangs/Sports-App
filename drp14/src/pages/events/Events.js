@@ -6,8 +6,7 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      body: undefined,
-      refresh: undefined,
+      images: [],
     };
   }
 
@@ -31,48 +30,42 @@ class Events extends Component {
   mapImages = async (events) => {
     var mappedEvents = await Promise.all(
       events.map(async (event) => {
-        event.pictures = await this.getImages(event);
-        return event;
+        return await this.getImages(event);
       })
     );
 
     return mappedEvents;
   };
 
-  setEvents = async (events) => {
-    console.log("set events");
-    const mappedEvents = await this.mapImages(events);
+  setEvents = async () => {
     this.setState({
-      body: mappedEvents,
-      refresh: this.props.refresh,
+      images: await this.mapImages(this.props.events),
     });
   };
 
-  render() {
-    if (!this.state.body || this.props.refresh !== this.state.refresh) {
-      this.setEvents(this.props.events);
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props !== prevProps) {
+      this.setEvents();
     }
+  }
 
-    return this.state.body ? (
+  componentDidMount() {
+    this.setEvents();
+  }
+
+  render() {
+    return(
       <div className="event-grid">
-        <p>{this.state.body.length} events found</p>
-        {this.state.body.map((x) => (
+        <p>{this.props.events.length} events found</p>
+        {this.props.events.map((x, i, _) => (
           <SportingEvent
             filter={this.props.filter}
+            images={i < this.state.images.length ? this.state.images[i] : []}
             data={x}
-            rsvp={
-              this.props.filter === "attending" ||
-              this.props.filter === "hosting"
-                ? "hidden"
-                : ""
-            }
+            rsvp={this.props.rsvp}
           />
         ))}
       </div>
-    ) : document.cookie || !this.props.filter ? (
-      <p>Fetching events</p>
-    ) : (
-      <p />
     );
   }
 }

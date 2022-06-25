@@ -241,5 +241,5 @@ hostEvent = async (event, user) => {
 };
 
 findImages = async (event) => {
-  return await Image.find({ _id: { $in: event.images } });
+  return await Image.find({ _id: { $in: event } });
 };

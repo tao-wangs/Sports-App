@@ -8,21 +8,14 @@ class MyEvents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: undefined,
-      attending: true,
-      refresh: false,
+      events: [],
     };
   }
 
-  setFilter = (event) => {
-    this.setState({ attending: event.target.name === "attending" });
-    this.getEvents();
-  };
-
-  getEvents = async () => {
+  getEvents = async (event) => {
     console.log("getting events");
     var path = "";
-    if (this.state.attending) {
+    if (event.target.name === "attending") {
       path = "/get_attending";
     } else {
       path = "/get_hosting";
@@ -37,7 +30,6 @@ class MyEvents extends Component {
 
     this.setState({
       events: body.events,
-      refresh: !this.state.refresh,
     });
   };
 
@@ -47,11 +39,6 @@ class MyEvents extends Component {
       return <Navigate to="/login" />;
     }
 
-    if (!this.state.events) {
-      this.getEvents();
-      return;
-    }
-
     return (
       <div className="myevents">
         <h1>My Events</h1>
@@ -59,7 +46,7 @@ class MyEvents extends Component {
           name="attending"
           className="secondary m-2 btn-lg"
           variant="light"
-          onClick={this.setFilter}
+          onClick={this.getEvents}
         >
           Attending
         </Button>
@@ -67,12 +54,12 @@ class MyEvents extends Component {
           name="hosting"
           className="secondary m-2 btn-lg"
           variant="light"
-          onClick={this.setFilter}
+          onClick={this.getEvents}
         >
           Hosting
         </Button>
         <div>
-          <Events events={this.state.events} refresh={this.state.refresh} />
+          <Events events={this.state.events} />
         </div>
       </div>
     );
