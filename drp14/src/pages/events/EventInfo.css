@@ -1,0 +1,23 @@
+.eventInfoContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.eventInfoWrapper {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.eventImage__wrapper {
+    width: 33%;
+}
+
+.eventImage {
+    width: 100%;
+    object-fit: cover;
+}
+
