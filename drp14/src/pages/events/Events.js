@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SportingEvent } from "./SportingEvent";
 import "./Events.css";
+import getImages from "./imageGetter";
 //import { Navigate } from "react-router-dom";
 class Events extends Component {
   constructor(props) {
@@ -10,27 +11,10 @@ class Events extends Component {
     };
   }
 
-  getImages = async (event) => {
-    const params = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: event.images }),
-    };
-
-    const response = await fetch("/get_images", params);
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      alert(body.message);
-      return;
-    }
-    return body.images;
-  };
-
   mapImages = async (events) => {
     var mappedEvents = await Promise.all(
       events.map(async (event) => {
-        return await this.getImages(event);
+        return await getImages(event);
       })
     );
 
@@ -54,7 +38,7 @@ class Events extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className="event-grid">
         <p>{this.props.events.length} events found</p>
         {this.props.events.map((x, i, _) => (

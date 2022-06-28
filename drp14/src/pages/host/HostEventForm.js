@@ -33,8 +33,6 @@ class HostEventForm extends Component {
   }
 
   async handleImageUpload() {
-    console.log(this.state.selectedFile);
-
     if (
       this.state.selectedFile !== "" &&
       this.state.selectedFile.size > 4194304

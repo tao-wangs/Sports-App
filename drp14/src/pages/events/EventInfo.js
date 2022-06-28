@@ -3,22 +3,16 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Linkify from "react-linkify";
 import "./EventInfo.css";
 import { useParams } from "react-router-dom";
+import getImages from "./imageGetter";
+import { Buffer } from "buffer";
 
 const EventInfo = () => {
   let { id } = useParams();
 
   const [event, setEvent] = useState(undefined);
-  const [images, setImages] = useState([
-    "/swimming1.jpg",
-    "/swimming2.jpg",
-    "/swimming3.jpg",
-    "/swimming4.jpg",
-    "/swimming6.jpg",
-    "/swimming5.jpg",
-  ]);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    console.log("use effect");
     async function getEvent() {
       const params = {
         method: "POST",
@@ -33,12 +27,12 @@ const EventInfo = () => {
         alert(body.message);
       }
       setEvent(body.event);
+      setImages(await getImages(body.event));
     }
     getEvent();
   }, [id]);
 
   if (event !== undefined) {
-    console.log(event);
     return (
       <div className="eventInfoContainer">
         <div className="eventInfoWrapper">
@@ -50,11 +44,20 @@ const EventInfo = () => {
           <span className="eventCategory">{event.sport}</span>
           <div className="eventImages">
             {/* Map over list of images and render the following: */}
-            {images.map((img) => (
-              <div className="eventImage__wrapper">
-                <img className="eventImage" src={img} alt="" />
-              </div>
-            ))}
+            {images.map((x) => {
+              const img = Buffer.from(x.data.data);
+              return (
+                <div className="eventImage__wrapper">
+                  <img
+                    className="eventImage"
+                    src={`data:${x.contentType};base64,${img.toString(
+                      "base64"
+                    )}`}
+                    alt=""
+                  />
+                </div>
+              );
+            })}
           </div>
           <div className="eventDetails">
             <div className="eventDetailsText">

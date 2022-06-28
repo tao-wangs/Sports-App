@@ -23,9 +23,8 @@ class LogOut extends Component {
       body: JSON.stringify({ sessionID: sessionID }),
     };
 
-    const response = await fetch("/post_logout", params);
-    const body = await response.json();
-    console.log(body.message);
+    await fetch("/post_logout", params);
+
     this.setState({ submit: true });
   }
 
