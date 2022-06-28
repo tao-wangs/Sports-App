@@ -12,6 +12,10 @@ class MyEvents extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getEvents({ target: { name: "attending" } });
+  }
+
   getEvents = async (event) => {
     console.log("getting events");
     var path = "";
