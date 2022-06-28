@@ -21,32 +21,27 @@ function FindEvents(props) {
   const [categories, setCategories] = useState([]);
   const [toggle, setToggle] = useState({ events: [], query: {} });
 
-  const didMount = React.useRef(false);
   useEffect(() => {
-    if (didMount.current) {
-      async function getEvents() {
-        var finalQuery = {
-          include: query.include,
-          exclude: query.exclude,
-          categories: categories,
-        };
+    async function getEvents() {
+      var finalQuery = {
+        include: query.include,
+        exclude: query.exclude,
+        categories: categories,
+      };
 
-        const params = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            query: finalQuery,
-          }),
-        };
+      const params = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: finalQuery,
+        }),
+      };
 
-        const response = await fetch("/filter_events", params);
-        const body = await response.json();
-        setToggle({ events: body.events, query: finalQuery });
-      }
-      getEvents();
-    } else {
-      didMount.current = true;
+      const response = await fetch("/filter_events", params);
+      const body = await response.json();
+      setToggle({ events: body.events, query: finalQuery });
     }
+    getEvents();
   }, [query, categories]);
 
   const onFormSubmit = useCallback(async (data) => {
