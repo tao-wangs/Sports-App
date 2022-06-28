@@ -17,7 +17,6 @@ class MyEvents extends Component {
   }
 
   getEvents = async (event) => {
-    console.log("getting events");
     var path = "";
     if (event.target.name === "attending") {
       path = "/get_attending";
@@ -38,7 +37,6 @@ class MyEvents extends Component {
   };
 
   render() {
-    console.log("myevents render");
     if (!document.cookie) {
       return <Navigate to="/login" />;
     }

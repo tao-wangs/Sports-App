@@ -78,7 +78,6 @@ function FindEvents(props) {
     }
   }, [location.state, onFormSubmit]);
 
-  console.log("find events render");
   return (
     <div className="findEventsPage">
       <div className="findEventsPage__info">

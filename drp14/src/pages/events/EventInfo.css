@@ -13,7 +13,7 @@
 }
 
 .eventInfoWrapper > h1 {
-    font-size: 24px;
+    font-size: 48px;
 }
 
 .eventAddress {
@@ -26,6 +26,7 @@
 .eventCategory {
     color: #0071c2;
     font-weight: 500;
+    text-transform: capitalize;
 }
 
 .eventImages {

@@ -1,4 +1,5 @@
 import Linkify from "react-linkify";
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Buffer } from "buffer";
@@ -58,7 +59,9 @@ class SportingEvent extends Component {
         <FavoriteIcon className="sportingEvent__heart" />
         <div className="sportingEvent__info">
           <div className="sportingEvent__infoTop">
-            <h3>{this.props.data.name}</h3>
+            <Link to={`/events/${this.props.data._id}`}>
+              <h3>{this.props.data.name}</h3>
+            </Link>
             <p>{this.props.data.location}</p>
             <p>
               {new Date(this.props.data.date).toLocaleString() +
