@@ -39,18 +39,19 @@ class SportingEvent extends Component {
   }
 
   render() {
+    var img = undefined;
+    if (this.props.images.length !== 0) {
+      img = Buffer.from(this.props.images[0].data.data);
+    }
     return (
       <div className="sportingEvent">
-        {this.props.images.length !== 0 ? (
-          this.props.images.map((x) => {
-            const img = Buffer.from(x.data.data);
-            return (
-              <img
-                src={`data:${x.contentType};base64,${img.toString("base64")}`}
-                alt=""
-              />
-            );
-          })
+        {img ? (
+          <img
+            src={`data:${
+              this.props.images[0].contentType
+            };base64,${img.toString("base64")}`}
+            alt=""
+          />
         ) : (
           <img src="/placeholder.jpg" alt="" />
         )}
