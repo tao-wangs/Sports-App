@@ -24,20 +24,3 @@
   margin: 5px;
   color: black;
 }
-
-.findEventsPage__info > button:hover {
-  border-radius: 30px;
-  border: 1px solid lightgray;
-  text-transform: inherit;
-  margin: 5px;
-  color: black;
-}
-
-.findEventsPage__info > button:focus {
-  border-radius: 30px;
-  border: 1px solid lightgray;
-  text-transform: inherit;
-  margin: 5px;
-  color: white;
-  background-color: black;
-}

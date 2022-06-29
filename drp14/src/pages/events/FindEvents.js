@@ -20,6 +20,15 @@ function FindEvents(props) {
   });
   const [categories, setCategories] = useState([]);
   const [toggle, setToggle] = useState({ events: [], query: {} });
+  const [catToggles, setCatToggles] = useState(
+      {
+          athletic: false,
+          ball: false,
+          bat: false,
+          martial_arts: false,
+          racket: false,
+          water_sports: false
+      });
 
   useEffect(() => {
     async function getEvents() {
@@ -65,6 +74,10 @@ function FindEvents(props) {
   }, []);
 
   const toggleCategory = (category) => {
+    const newToggles = catToggles;
+    newToggles[category] = !newToggles[category];
+    setCatToggles(newToggles);
+    console.log(catToggles);
     if (!categories.includes(category)) {
       setCategories([category, ...categories]);
     } else {
@@ -95,30 +108,51 @@ function FindEvents(props) {
             aria-label="Search"
           />
         </form>
-        <Button variant="outlined" onClick={() => toggleCategory("athletic")}>
+        <Button 
+          variant="outlined"
+          style={catToggles.athletic ? {"background-color": "black", "color": "white"} : {"background-color": "white"}}
+          onClick={() => toggleCategory("athletic")}
+        >
           <DirectionsRunIcon />
           Athletic
         </Button>
-        <Button variant="outlined" onClick={() => toggleCategory("ball")}>
+        <Button 
+          variant="outlined"
+          style={catToggles.ball ? {"background-color": "black", "color": "white"} : {"background-color": "white"}}
+          onClick={() => toggleCategory("ball")}
+        >
           <SportsSoccerIcon />
           Ball
         </Button>
-        <Button variant="outlined" onClick={() => toggleCategory("bat")}>
+        <Button 
+          variant="outlined"
+          style={catToggles.bat ? {"background-color": "black", "color": "white"} : {"background-color": "white"}}
+          onClick={() => toggleCategory("bat")}
+        >
           <SportsCricketIcon />
           Bat
         </Button>
         <Button
           variant="outlined"
+          style={catToggles.martial_arts ? {"background-color": "black", "color": "white"} : {"background-color": "white"}}
           onClick={() => toggleCategory("martial_arts")}
         >
           <SportsMartialArtsIcon />
           Martial Arts
         </Button>
-        <Button variant="outlined" onClick={() => toggleCategory("racket")}>
+        <Button 
+          variant="outlined"
+          style={catToggles.racket ? {"background-color": "black", "color": "white"} : {"background-color": "white"}}
+          onClick={() => toggleCategory("racket")}
+        >
           <SportsTennisIcon />
           Racket
         </Button>
-        <Button variant="outlined" onClick={() => toggleCategory("water")}>
+        <Button 
+          variant="outlined"
+          style={catToggles.water ? {"background-color": "black", "color": "white"} : {"background-color": "white"}}
+          onClick={() => toggleCategory("water")}
+        >
           <PoolIcon />
           Water Sports
         </Button>

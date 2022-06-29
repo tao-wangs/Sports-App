@@ -8,10 +8,6 @@
   cursor: pointer;
 }
 
-.sportingEvent:hover {
-  opacity: 0.8;
-}
-
 .sportingEvent > img {
   width: 400px;
   height: 275px;
