@@ -122,6 +122,16 @@ app.post("/filter_events", (req, res) => {
   }
 });
 
+app.post("/get_event_id", (req, res) => {
+  findEvent(req.body.id).then((event) => {
+    if (event.length === 0) {
+      res.status(404).json({ message: "Event not found!" });
+    } else {
+      res.json({ event: event[0] });
+    }
+  });
+});
+
 app.post("/get_user_id", (req, res) => {
   if (!sessions[req.cookies.sessionID]) {
     res.status(401).json({ message: "User not logged in!" });
@@ -132,7 +142,7 @@ app.post("/get_user_id", (req, res) => {
 
 app.post("/post_rsvp", (req, res) => {
   rsvpEvent(req.body.event, req.body.user).then(() => {
-    res.status(200).json({ message: "Spot reserved" });
+    res.json({ message: "Spot reserved" });
   });
 });
 
@@ -198,6 +208,10 @@ app.post("/post_logout", (req, res) => {
   res.clearCookie("sessionID").json({ message: "successful" });
 });
 
+findEvent = async (id) => {
+  return await Event.find({ _id: id });
+};
+
 findEvents = async () => {
   return await Event.find({});
 };
@@ -241,5 +255,5 @@ hostEvent = async (event, user) => {
 };
 
 findImages = async (event) => {
-  return await Image.find({ _id: { $in: event.images } });
+  return await Image.find({ _id: { $in: event } });
 };

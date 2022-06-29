@@ -1,4 +1,5 @@
 import Linkify from "react-linkify";
+import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Buffer } from "buffer";
@@ -39,25 +40,28 @@ class SportingEvent extends Component {
   }
 
   render() {
+    var img = undefined;
+    if (this.props.images.length !== 0) {
+      img = Buffer.from(this.props.images[0].data.data);
+    }
     return (
       <div className="sportingEvent">
-        {this.props.data.pictures.length !== 0 ? (
-          this.props.data.pictures.map((x) => {
-            const img = Buffer.from(x.data.data);
-            return (
-              <img
-                src={`data:${x.contentType};base64,${img.toString("base64")}`}
-                alt=""
-              />
-            );
-          })
+        {img ? (
+          <img
+            src={`data:${
+              this.props.images[0].contentType
+            };base64,${img.toString("base64")}`}
+            alt=""
+          />
         ) : (
           <img src="/placeholder.jpg" alt="" />
         )}
         <FavoriteIcon className="sportingEvent__heart" />
         <div className="sportingEvent__info">
           <div className="sportingEvent__infoTop">
-            <h3>{this.props.data.name}</h3>
+            <Link to={`/events/${this.props.data._id}`}>
+              <h3>{this.props.data.name}</h3>
+            </Link>
             <p>{this.props.data.location}</p>
             <p>
               {new Date(this.props.data.date).toLocaleString() +

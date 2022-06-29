@@ -10,6 +10,8 @@ import HostEventForm from "./pages/host/HostEventForm";
 import SignUp from "./pages/auth/SignUp";
 import LogIn from "./pages/auth/LogIn";
 import MyEvents from "./pages/myevents/MyEvents";
+import EventInfo from "./pages/events/EventInfo";
+
 class App extends Component {
   render() {
     return (
@@ -19,17 +21,11 @@ class App extends Component {
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/events" element={<FindEvents />} />
+            <Route path="/events/:id" element={<EventInfo />} />
             <Route path="/host" element={<HostEventForm />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            <Route
-              path="/myevents/attending"
-              element={<MyEvents filter="attending" />}
-            />
-            <Route
-              path="/myevents/hosting"
-              element={<MyEvents filter="hosting" />}
-            />
+            <Route path="/myevents" element={<MyEvents />} />
           </Routes>
           <Footer />
         </Router>
