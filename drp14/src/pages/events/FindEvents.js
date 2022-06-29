@@ -47,7 +47,10 @@ function FindEvents(props) {
 
       const response = await fetch("/filter_events", params);
       const body = await response.json();
-      setToggle({ events: body.events, query: finalQuery });
+      const events = body.events.filter(
+        (x) => new Date(x.enddate) > new Date()
+      );
+      setToggle({ events: events, query: finalQuery });
     }
     getEvents();
   }, [query, categories]);
