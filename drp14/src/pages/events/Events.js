@@ -8,6 +8,7 @@ class Events extends Component {
     super(props);
     this.state = {
       images: [],
+      id: 0
     };
   }
 
@@ -22,9 +23,14 @@ class Events extends Component {
   };
 
   setEvents = async () => {
-    this.setState({
-      images: await this.mapImages(this.props.events),
-    });
+    const prevId = this.state.id + 1
+    this.setState({id: prevId});
+    const images = await this.mapImages(this.props.events);
+    if (this.state.id === prevId) {
+        this.setState({
+            images: images
+        });
+    }
   };
 
   componentDidUpdate(prevProps, prevState) {
