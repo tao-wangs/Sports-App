@@ -3,6 +3,11 @@
     margin-bottom: 10px;
 }
 
+.accordion {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .eventInfoContainer {
     display: flex;
     justify-content: center;

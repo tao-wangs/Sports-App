@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import getImages from "./imageGetter";
 import { Buffer } from "buffer";
 
+import {Accordion} from "react-bootstrap";
+
 const EventInfo = () => {
   let { id } = useParams();
 
@@ -92,17 +94,24 @@ const EventInfo = () => {
               <button onClick={handleRSVP}>RSVP</button>
             </div>
           </div>
-          <div className="map">
-            <iframe
-              title="map"
-              width="600"
-              height="450"
-              loading="lazy"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDlY0nBcpQ2hymqsByE8tK7uYKaRPALjXs&q=${event.location}`}
-            ></iframe>
-          </div>
+          <Accordion className="accordion" defaultActiveKey="0">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>View Event Location</Accordion.Header>
+              <Accordion.Body>
+              <div className="map">
+                <iframe
+                  title="map"
+                  width="600"
+                  height="450"
+                  loading="lazy"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDlY0nBcpQ2hymqsByE8tK7uYKaRPALjXs&q=${event.location}`}
+                ></iframe>
+              </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </div>
       </div>
     );
