@@ -12,6 +12,30 @@ const EventInfo = () => {
   const [event, setEvent] = useState(undefined);
   const [images, setImages] = useState([]);
 
+  const handleRSVP = async () => {
+    const state = {
+      event: event._id,
+      user: document.cookie,
+    };
+    const params = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state),
+    };
+    const response = await fetch("/get_user_id", params);
+    const body = await response.json();
+    if (!body.user) {
+      alert(body.message);
+      return;
+    }
+    state.user = body.user;
+    params.body = JSON.stringify(state);
+
+    const rsvpResponse = await fetch("/post_rsvp", params);
+    const rsvpBody = await rsvpResponse.json();
+    alert(rsvpBody.message);
+  };
+
   useEffect(() => {
     async function getEvent() {
       const params = {
@@ -65,7 +89,7 @@ const EventInfo = () => {
               <Linkify>{event.description}</Linkify>
             </div>
             <div className="eventDetailsRSVP">
-              <button>RSVP</button>
+              <button onClick={handleRSVP}>RSVP</button>
             </div>
           </div>
           <div className="map">
