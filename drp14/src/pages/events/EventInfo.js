@@ -94,7 +94,7 @@ const EventInfo = () => {
               <button onClick={handleRSVP}>RSVP</button>
             </div>
           </div>
-          <Accordion className="accordion" defaultActiveKey="0">
+          <Accordion className="accordion">
             <Accordion.Item eventKey="0">
               <Accordion.Header>View Event Location</Accordion.Header>
               <Accordion.Body>
