@@ -68,6 +68,17 @@ const EventInfo = () => {
               <button>RSVP</button>
             </div>
           </div>
+          <div className="map">
+            <iframe
+              title="map"
+              width="600"
+              height="450"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDlY0nBcpQ2hymqsByE8tK7uYKaRPALjXs&q=${event.location}`}
+            ></iframe>
+          </div>
         </div>
       </div>
     );
