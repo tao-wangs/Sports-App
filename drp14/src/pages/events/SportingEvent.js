@@ -11,6 +11,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 class SportingEvent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      event: this.props.data,
+      rsvp: false,
+    };
     this.handleRSVP = this.handleRSVP.bind(this);
   }
 
@@ -20,7 +24,7 @@ class SportingEvent extends Component {
       event: this.props.data._id,
       user: document.cookie,
     };
-    const params = {
+    var params = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(state),
@@ -34,9 +38,31 @@ class SportingEvent extends Component {
     state.user = body.user;
     params.body = JSON.stringify(state);
 
-    const rsvpResponse = await fetch("/post_rsvp", params);
-    const rsvpBody = await rsvpResponse.json();
-    alert(rsvpBody.message);
+    if (!this.state.rsvp) {
+      const rsvpResponse = await fetch("/post_rsvp", params);
+      const rsvpBody = await rsvpResponse.json();
+      alert(rsvpBody.message);
+
+      params = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: this.state.event._id }),
+      };
+      const eventResponse = await fetch("/get_event", params);
+      const eventBody = await eventResponse.json();
+      this.setState({ event: eventBody.event[0], rsvp: true });
+    } else {
+      alert("You have already responded to this event!");
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.data !== prevProps.data) {
+      this.setState({
+        event: this.props.data,
+        rsvp: false,
+      });
+    }
   }
 
   render() {
@@ -59,24 +85,24 @@ class SportingEvent extends Component {
         <FavoriteIcon className="sportingEvent__heart" />
         <div className="sportingEvent__info">
           <div className="sportingEvent__infoTop">
-            <Link to={`/events/${this.props.data._id}`}>
-              <h3>{this.props.data.name}</h3>
+            <Link to={`/events/${this.state.event._id}`}>
+              <h3>{this.state.event.name}</h3>
             </Link>
-            <p>{this.props.data.location}</p>
+            <p>{this.state.event.location}</p>
             <p>
-              {new Date(this.props.data.date).toLocaleString() +
+              {new Date(this.state.event.date).toLocaleString() +
                 " to " +
-                new Date(this.props.data.enddate).toLocaleString()}
+                new Date(this.state.event.enddate).toLocaleString()}
             </p>
             <p>
-              <Linkify>{this.props.data.description}</Linkify>
+              <Linkify>{this.state.event.description}</Linkify>
             </p>
           </div>
           <div className="sportingEvent__infoBottom">
             <div className="sportingEvent__attending">
               <PeopleIcon />
               <p>
-                <strong>{this.props.data.attendees.length} attending</strong>
+                <strong>{this.state.event.attendees.length} attending</strong>
               </p>
             </div>
             <div className="sportingEvent__rsvp">

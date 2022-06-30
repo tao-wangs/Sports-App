@@ -29,7 +29,7 @@ const categories = {
   athletic: ["running", "high jump", "pole vault"],
   ball: ["football", "rugby"],
   racket: ["badminton", "tennis"],
-  martial_arts: ["karate", "judo"],
+  martial_arts: ["karate", "judo", "kabaddi"],
   bat: ["cricket", "baseball"],
   water: ["swimming", "rowing"],
 };
@@ -129,6 +129,12 @@ app.post("/get_event_id", (req, res) => {
     } else {
       res.json({ event: event[0] });
     }
+  });
+});
+
+app.post("/get_event", (req, res) => {
+  findEvent(req.body.id).then((event) => {
+    res.json({ event: event });
   });
 });
 
