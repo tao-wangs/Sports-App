@@ -91,6 +91,7 @@ const EventInfo = () => {
               <Linkify>{event.description}</Linkify>
             </div>
             <div className="eventDetailsRSVP">
+              <h5 className="reserve">Reserve your spot today!</h5>
               <button onClick={handleRSVP}>RSVP</button>
             </div>
           </div>
@@ -101,7 +102,7 @@ const EventInfo = () => {
               <div className="map">
                 <iframe
                   title="map"
-                  width="600"
+                  width="100%"
                   height="450"
                   loading="lazy"
                   allowfullscreen
